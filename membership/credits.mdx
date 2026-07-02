@@ -1,0 +1,80 @@
+---
+title: "Weekly Credits: How They Work and Reset"
+sidebarTitle: "Credits"
+description: "Understand Praeto's weekly credit system — how your membership tier sets your allowance, how to track your balance, and when credits reset each week."
+---
+
+Weekly credits are a time-limited usage quota granted to your account by your active membership tier. Each week your wallet is loaded with a fresh batch of credits that you spend on premium server activities — think of them as a weekly budget that refreshes on a fixed schedule, separate from the diamonds you use to purchase and renew your membership.
+
+## Credits vs. Diamonds
+
+It's important to understand the distinction between the two currencies in Praeto's economy:
+
+| | **Diamonds** | **Credits** |
+|---|---|---|
+| **What they are** | Persistent in-game currency | Weekly usage quota |
+| **How you get them** | Mine, trade, or earn in-game | Granted automatically by your membership tier |
+| **What you spend them on** | Membership purchases, marketplace trades | Premium server activities each week |
+| **Do they expire?** | No | Yes — unused credits expire at the weekly reset |
+
+<Info>
+  Diamonds are your permanent wallet. Credits are your weekly allowance. Spending credits never costs you diamonds, and buying membership never touches your credits.
+</Info>
+
+## Your Credit Balance Explained
+
+Your credit wallet always shows three values:
+
+```
+Weekly Credits:    100
+Credits Used:       45
+Credits Remaining:  55
+Resets At:         2026-07-07 00:00 UTC
+```
+
+- **Weekly Credits** — the total allowance granted by your current tier at the start of the week.
+- **Credits Used** — the amount you've spent on premium activities so far this week.
+- **Credits Remaining** — your available balance, calculated as `weekly_credits − used_credits`.
+- **Resets At** (`week_end_at`) — the exact UTC timestamp when your wallet resets and a fresh allowance is loaded.
+
+## The Weekly Reset Cycle
+
+Every week, at the timestamp shown in **Resets At**, the following happens automatically:
+
+<Steps>
+  <Step title="Unused credits expire">
+    Any credits remaining in your wallet at reset time are discarded. They do not roll over to the next week.
+  </Step>
+  <Step title="Used credits counter clears">
+    Your `used_credits` counter resets to zero, giving you a clean slate for the new week.
+  </Step>
+  <Step title="Fresh allowance is loaded">
+    Your `weekly_credits` value is replenished to your tier's full allowance, ready to spend immediately.
+  </Step>
+</Steps>
+
+<Warning>
+  **Unused credits expire at the weekly reset — they do not carry over.** If you have 55 credits remaining when the reset triggers, those credits are permanently lost. Plan your premium activities to make full use of your allowance before the `week_end_at` timestamp.
+</Warning>
+
+## How to Check Your Balance
+
+View your current credit balance in-game at any time. Your wallet display shows your full allowance, how many credits you've used, how many remain, and the exact time your credits will next reset. Keep an eye on the **Resets At** timestamp so you don't lose credits to an unexpected rollover.
+
+<Tip>
+  Make a habit of checking your balance a day or two before the reset. If you have a large number of credits remaining, it's a great time to engage in premium server activities before they expire.
+</Tip>
+
+## Frequently Asked Questions
+
+<Accordion title="Do unused credits carry over?">
+  No. Credits that remain in your wallet when the `week_end_at` timestamp is reached are permanently discarded. The weekly reset always starts you at your tier's full allowance with a zero used-credits counter — there is no rollover or banking mechanism for unused credits.
+</Accordion>
+
+<Accordion title="Can I buy extra credits?">
+  Credits are tied exclusively to your membership tier — you cannot purchase additional credits separately. The only way to increase your weekly credit allowance is to upgrade to a higher tier (Silver or Gold), which grants a larger allowance at each reset. Tier upgrades are purchased with in-game diamonds.
+</Accordion>
+
+<Accordion title="What uses my credits?">
+  Credits are spent when you perform premium server activities on Praeto. The specific actions that consume credits may vary as the platform evolves. Check the in-game membership menu or announcements for the current list of credit-costing activities on the server.
+</Accordion>

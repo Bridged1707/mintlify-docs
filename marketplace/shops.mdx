@@ -1,0 +1,102 @@
+---
+title: "Run and Use Chest Shops on Praeto"
+sidebarTitle: "Shops"
+description: "Set up and use fixed-price chest shops on Praeto to buy or sell Minecraft items instantly using diamonds — no bidding, no waiting."
+---
+
+Chest shops are the backbone of the Praeto economy. A chest shop is a player-owned physical shop in the world: a chest paired with a sign that lets other players buy from or sell to the shop owner at a fixed diamond price. Trades happen instantly — no auctions, no negotiation.
+
+## Shop Types
+
+Every chest shop has one of two types:
+
+| Type | What it means |
+|---|---|
+| **SELLING** | The shop owner is selling items to other players. You pay diamonds and receive items. |
+| **BUYING** | The shop owner is buying items from other players. You hand over items and receive diamonds. |
+
+<Info>
+  A single shop can only be one type. Many traders set up pairs of shops — one SELLING and one BUYING — to create a buy/sell spread on the same item.
+</Info>
+
+## Shop Data Fields
+
+Each shop exposes the following data, both in-game and through the API:
+
+| Field | Description |
+|---|---|
+| `shop_id` | Unique identifier for the shop |
+| `owner_name` | Display name of the shop owner |
+| `owner_uuid` | UUID of the shop owner |
+| `world` | The world the shop is located in |
+| `x`, `y`, `z` | Coordinates of the shop chest |
+| `shop_type` | `SELLING` or `BUYING` |
+| `price` | Cost in diamonds per transaction |
+| `remaining` | Current stock available (for SELLING shops) |
+| `item_type` | The Minecraft item type identifier |
+| `item_name` | Human-readable item name |
+| `item_quantity` | Number of items per transaction |
+| `snbt` | Raw NBT data describing the item |
+| `last_seen` | Timestamp of the last time the shop was detected active |
+
+## Finding Shops
+
+Use the in-game shop browser to search for shops by item name or type. The browser shows each shop's location, price per unit, stock remaining, and owner.
+
+<Tip>
+  Always check the `remaining` stock before making a long trip to a SELLING shop. A shop with zero stock can't complete your trade, and you'll have wasted the journey.
+</Tip>
+
+You can also query shops programmatically using the transaction lookup API:
+
+```http
+GET /v1/transactions/lookup/shop?item=DARK_OAK_LOG&shop_type=buyFromShop
+```
+
+This returns a list of matching shops sorted by price, letting you compare options before you head out.
+
+## Creating a Shop
+
+<Steps>
+  <Step title="Place a chest">
+    Put a chest in an accessible location in your base or shop building. Make sure players can reach it without trespassing into protected areas.
+  </Step>
+  <Step title="Stock the chest">
+    Fill the chest with the items you want to sell (for a SELLING shop), or leave it with diamonds to fund purchases (for a BUYING shop).
+  </Step>
+  <Step title="Attach a shop sign">
+    Place a sign on the chest face. Use the correct sign format for the Praeto shop plugin — include your price in diamonds and the item quantity per transaction.
+  </Step>
+  <Step title="Verify the listing">
+    Right-click the sign to confirm the shop registered correctly. The sign will display the item name, price, and current stock once active.
+  </Step>
+</Steps>
+
+## What the Shop Sign Displays
+
+When a shop is active, its sign shows:
+
+```
+[Shop Owner Name]
+[Item Quantity] x [Item Name]
+[Price] diamonds
+[Stock Remaining / "OUT OF STOCK"]
+```
+
+## Managing Your Shop
+
+<Accordion title="Restocking a SELLING shop">
+  Open the chest and add more items directly. The stock count updates automatically — there is no need to recreate the sign.
+</Accordion>
+
+<Accordion title="Changing the price">
+  Remove the existing sign and place a new one with the updated price. The shop will re-register with the new price on the next detection cycle.
+</Accordion>
+
+<Accordion title="Closing a shop">
+  Break the sign to deactivate the shop. Remove your remaining stock from the chest before breaking the sign to avoid item loss.
+</Accordion>
+
+<Warning>
+  If your SELLING shop runs out of stock, it becomes unavailable to buyers but stays visible in search results. Restock promptly to avoid losing customers to competing shops.
+</Warning>

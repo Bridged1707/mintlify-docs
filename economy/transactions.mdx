@@ -1,0 +1,101 @@
+---
+title: "View Your Praeto Transaction History"
+sidebarTitle: "Transactions"
+description: "Review your complete diamond transaction history on Praeto, understand each transaction type, and track every purchase, wager, and payout over time."
+---
+
+Every diamond that enters or leaves your wallet generates a transaction record. Praeto stores these records in the `balance_transactions` table, giving you a complete, auditable log of your economic activity — from membership purchases to auction wins and prediction market payouts.
+
+## Viewing Your Transaction History
+
+Run the following command in-game to open your transaction log:
+
+```
+/wallet history
+```
+
+The log lists your most recent transactions in reverse chronological order. Each entry shows the transaction kind, the diamond amount, and the timestamp.
+
+To narrow results to a specific type, pass the kind as an argument:
+
+```
+/wallet history <kind>
+```
+
+For example:
+
+```
+/wallet history membership_purchase
+/wallet history wager
+```
+
+## Transaction Types
+
+| Type | Description |
+|---|---|
+| `membership_purchase` | Diamonds spent to buy or renew a membership tier |
+| `shop_purchase` | Diamonds spent buying items from a player-run shop |
+| `shop_sale` | Diamonds received when another player buys from your shop |
+| `auction_bid` | Diamonds held or spent when you place or win an auction bid |
+| `auction_refund` | Diamonds returned when you are outbid in the auction house |
+| `wager` | Diamonds staked on a prediction market event |
+| `wager_payout` | Diamonds received as winnings from a correct prediction |
+| `deposit` | Physical diamonds deposited from inventory into your wallet |
+| `withdrawal` | Wallet balance converted back into physical diamonds |
+
+<Info>
+  Credits spent via your weekly allowance are tracked separately from raw diamond transactions but appear in the same history log with a `credit` prefix on the kind field (for example, `credit_shop_purchase`).
+</Info>
+
+## Reading a Transaction Entry
+
+<Steps>
+  <Step title="Identify the Kind">
+    The `kind` field tells you what triggered the transaction — a shop purchase, a wager, a membership renewal, and so on. Use this to quickly categorise what you are reviewing.
+  </Step>
+  <Step title="Check the Amount">
+    Positive amounts represent diamonds entering your wallet (sales, payouts, deposits). Negative amounts represent diamonds leaving your wallet (purchases, wagers, withdrawals).
+  </Step>
+  <Step title="Note the Timestamp">
+    Each transaction is stamped with the exact date and time it occurred. Use timestamps to cross-reference purchases with in-game events or Discord bot interactions.
+  </Step>
+  <Step title="Verify the Running Balance">
+    Your balance after each transaction is displayed alongside the entry, making it easy to spot unexpected drops or unusual activity.
+  </Step>
+</Steps>
+
+## Common Transaction Scenarios
+
+<Accordion title="Membership purchase">
+  When you buy a membership tier, a `membership_purchase` entry appears with a negative diamond amount equal to the tier cost. Immediately after, your `weekly_credits` allocation updates to reflect the new tier's credit grant.
+</Accordion>
+
+<Accordion title="Prediction market wager and payout">
+  Placing a wager creates a `wager` entry that debits your wallet. If your prediction is correct, a `wager_payout` entry credits your wallet with the original stake plus winnings. If incorrect, no payout entry is created — the wager entry is the final record.
+</Accordion>
+
+<Accordion title="Outbid at the auction house">
+  When someone outbids you, an `auction_refund` entry returns your held diamonds. Your net position returns to what it was before your bid, so you are never permanently out of pocket for a losing bid.
+</Accordion>
+
+<Accordion title="Shop sale while offline">
+  Player shops operate while you are offline. When a buyer purchases from your shop, a `shop_sale` entry is created and the diamonds are added to your wallet immediately — even if you are not logged in.
+</Accordion>
+
+<Tip>
+  Review your transaction history at the end of each week, just before your credit reset. Totalling up your `wager` and `shop_purchase` entries gives you a clear picture of where your diamonds are going and helps you decide where to cut back or double down in the next week.
+</Tip>
+
+## Exporting Your History
+
+If you need a full record for budgeting or dispute resolution, use the export command to receive a summary via the Praeto Discord bot:
+
+```
+/wallet export
+```
+
+The bot sends you a formatted message listing your last 30 days of transactions directly in your Discord DMs.
+
+<Warning>
+  Transaction records are retained for 90 days. If you need to reference activity older than that, export your history before the retention window closes.
+</Warning>

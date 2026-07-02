@@ -1,47 +1,124 @@
 ---
-title: "Quickstart"
-description: "Begin with a guide on the fastest path to a successful outcome"
+title: "Get Started with Praeto in Minutes"
+sidebarTitle: "Quick Start"
+description: "Join the Praeto Minecraft server, link your Discord account, and make your first trade or market wager in just a few straightforward steps."
 ---
 
-Describe how someone begins using your product. What is the first thing they need to do? Are there any prerequisites?
+Praeto gets you from a fresh Minecraft session to an active participant in the diamond economy faster than you might expect. This guide walks you through joining the server, activating your account, and placing your very first trade or prediction market wager.
 
-A quickstart should take someone from zero to using your product. They'll get a quick win and a sense of what they can accomplish.
+<Note>
+  You need a Minecraft Java Edition account to connect to Praeto. Make sure you're running a supported version before you begin.
+</Note>
 
-## Prerequisites
-
-Before you begin, you must have:
-
-- Requirement one (for example, Node.js 18+, a free account, an API key)
-- Requirement two (for example, a compatible device, a compatible browser, a compatible operating system)
-
-## Get started
+## Steps to Get Started
 
 <Steps>
-  <Step title="Install">
-    Describe how to install your product or sign up.
+  <Step title="Join the Praeto Server">
+    Open Minecraft Java Edition and navigate to **Multiplayer → Add Server**. Enter the Praeto server address:
 
-    ```bash
-    npm install your-package
     ```
+    play.praeto.gg
+    ```
+
+    Click **Done**, then select the server and hit **Join Server**. On your first connection, Praeto automatically creates your player profile and initialises an empty diamond wallet tied to your Minecraft username.
+
+    <Tip>
+      If you see a whitelist message, make sure your Minecraft account username matches the one you registered with. Reach out in the `#support` channel on Discord if you're stuck.
+    </Tip>
   </Step>
-  <Step title="Configure">
-    Describe any setup or configuration needed before first use.
 
-    ```bash
-    your-cli init
+  <Step title="Link Your Discord Account">
+    Your Discord account is your primary identity on Praeto. Without it, economy features remain locked. In the Minecraft chat, run:
+
     ```
+    /link
+    ```
+
+    Praeto will respond with a unique 6-digit verification code. Head to the **Praeto Discord server**, open the `#verify` channel, and send the code to the `@Praeto` bot using:
+
+    ```
+    /verify <code>
+    ```
+
+    Once the bot confirms the link, your diamond wallet, marketplace access, and weekly credit allowance all activate immediately.
+
+    <Note>
+      The verification code expires after **10 minutes**. If it times out, run `/link` in-game again to generate a fresh one.
+    </Note>
   </Step>
-  <Step title="Run it">
-    Show the first thing a user does to see it working.
 
-    ```bash
-    your-cli start
+  <Step title="Check Your Balance">
+    With your account active, confirm everything is working by checking your diamond wallet balance in-game:
+
     ```
+    /balance
+    ```
+
+    You'll see your current diamond balance and any pending weekly credits. New players receive a small starter credit on first link — look for it here.
+
+    <Tip>
+      You can also check your balance and full transaction history from the Praeto web dashboard at **app.praeto.gg** — no extra login needed if you sign in with Discord.
+    </Tip>
+  </Step>
+
+  <Step title="Visit the Marketplace">
+    Head to the Marketplace to browse player shops and live item listings. Use the in-game command to open the marketplace menu:
+
+    ```
+    /market
+    ```
+
+    From here you can:
+    - **Browse listings** — search by item name or category
+    - **Check live prices** — view VWAP data and recent candles for any tradeable item
+    - **Buy instantly** — purchase at the listed price or submit a buy order at your target price
+
+    <Info>
+      Item prices on Praeto are set entirely by players. The VWAP (volume-weighted average price) shown next to each item reflects real recent trades — use it as your baseline when deciding whether a listing is a good deal.
+    </Info>
+  </Step>
+
+  <Step title="Place Your First Wager">
+    Once you have some diamonds to spare, try the prediction markets. Open the prediction market menu with:
+
+    ```
+    /predict
+    ```
+
+    You'll see a list of open market events — things like upcoming boss spawns, server milestones, or economy benchmarks. Select an event, choose your outcome, and enter the number of diamonds you want to wager.
+
+    If your prediction is correct when the event resolves, your winnings are deposited straight into your diamond wallet.
+
+    <Tip>
+      Start small on your first wager. Scan the **Market Odds** column to understand implied probabilities before committing a large stack of diamonds.
+    </Tip>
   </Step>
 </Steps>
 
-<Tip>
-  Give people a way to get help. This could be a link to a support page, a chat with a customer support agent, or a forum for your product.
+## Tips for New Players
 
-  Example: Need help? Reach out to us at [support@yourcompany.com](mailto:support@yourcompany.com).
-</Tip>
+<CardGroup cols={2}>
+  <Card title="Mine Before You Trade" icon="pickaxe">
+    Build up a small diamond reserve through regular mining before opening a shop. Having inventory reduces pressure to sell at unfavourable prices.
+  </Card>
+  <Card title="Watch Prices First" icon="eye">
+    Spend a session observing market candles for items you want to trade. Spotting a pattern before committing diamonds gives you a real edge.
+  </Card>
+  <Card title="Claim Your Weekly Credits" icon="calendar-check">
+    Weekly credits are deposited automatically but check `/balance` each week to confirm receipt. Credits don't roll over, so put them to work.
+  </Card>
+  <Card title="Keep Your Discord Linked" icon="discord">
+    If you ever change your Discord account, re-link immediately with `/link`. A broken link suspends economy access until it's restored.
+  </Card>
+</CardGroup>
+
+## Where to Go Next
+
+<CardGroup cols={2}>
+  <Card title="Account Setup" icon="user" href="/getting-started/account-setup">
+    Learn exactly what gets created when you first join and how to verify your account is fully active.
+  </Card>
+  <Card title="Discord Link" icon="link" href="/getting-started/discord-link">
+    Deep-dive into the Discord linking process, what it unlocks, and how to troubleshoot a failed link.
+  </Card>
+</CardGroup>

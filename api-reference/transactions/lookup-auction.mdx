@@ -1,0 +1,123 @@
+---
+title: "GET /v1/transactions/lookup/auction"
+sidebarTitle: "Auction Lookup"
+description: "Query Praeto auction transaction history filtered by Minecraft item type and minimum diamond price to analyze player-to-player auction activity."
+---
+
+The auction lookup endpoint returns historical auction transactions recorded on the Praeto SMP. Filter results by item type and set a minimum diamond price to narrow down the trades you care about — useful for tracking price trends, verifying sales, or building economy dashboards.
+
+## Endpoint
+
+```
+GET /v1/transactions/lookup/auction
+```
+
+## Query Parameters
+
+<ParamField query="item" type="string" required>
+  The Minecraft item type to look up. Use the uppercase snake-case identifier for the item (e.g., `DIAMOND`, `NETHERITE_INGOT`, `EMERALD`). This field is case-sensitive.
+</ParamField>
+
+<ParamField query="min_price" type="integer">
+  Filter results to only include transactions where the sale price is greater than or equal to this value. Price is denominated in diamonds. Omit this parameter to return transactions at any price.
+</ParamField>
+
+## Example Request
+
+<CodeGroup>
+  ```bash cURL
+  curl "https://api.praeto.gg/v1/transactions/lookup/auction?item=DIAMOND&min_price=5" \
+    -H "Authorization: Bearer YOUR_API_KEY"
+  ```
+
+  ```python Python
+  import requests
+
+  params = {"item": "DIAMOND", "min_price": 5}
+  headers = {"Authorization": "Bearer YOUR_API_KEY"}
+
+  response = requests.get(
+      "https://api.praeto.gg/v1/transactions/lookup/auction",
+      params=params,
+      headers=headers,
+  )
+  print(response.json())
+  ```
+
+  ```javascript JavaScript
+  const params = new URLSearchParams({ item: "DIAMOND", min_price: 5 });
+  const response = await fetch(
+    `https://api.praeto.gg/v1/transactions/lookup/auction?${params}`,
+    { headers: { Authorization: "Bearer YOUR_API_KEY" } }
+  );
+  const data = await response.json();
+  console.log(data);
+  ```
+</CodeGroup>
+
+## Example Response
+
+```json
+[
+  {
+    "id": "txn_auc_01j9kz3m4x8q2v7n",
+    "item": "DIAMOND",
+    "price": 12,
+    "quantity": 64,
+    "seller": "Steve",
+    "buyer": "Alex",
+    "timestamp": "2024-11-14T09:32:10Z"
+  },
+  {
+    "id": "txn_auc_01j9kz4r5y9w3x8p",
+    "item": "DIAMOND",
+    "price": 7,
+    "quantity": 16,
+    "seller": "Notch",
+    "buyer": "Herobrine",
+    "timestamp": "2024-11-14T08:15:44Z"
+  }
+]
+```
+
+## Response Fields
+
+<ResponseField name="id" type="string">
+  Unique identifier for this auction transaction.
+</ResponseField>
+
+<ResponseField name="item" type="string">
+  The Minecraft item type that was sold at auction (e.g., `DIAMOND`).
+</ResponseField>
+
+<ResponseField name="price" type="integer">
+  The final sale price in diamonds per unit.
+</ResponseField>
+
+<ResponseField name="quantity" type="integer">
+  The number of items included in the transaction.
+</ResponseField>
+
+<ResponseField name="seller" type="string">
+  The Minecraft username of the player who listed the auction.
+</ResponseField>
+
+<ResponseField name="buyer" type="string">
+  The Minecraft username of the player who won or purchased the auction.
+</ResponseField>
+
+<ResponseField name="timestamp" type="string">
+  ISO 8601 UTC timestamp of when the auction transaction was completed.
+</ResponseField>
+
+## Error Responses
+
+| Status | Description |
+|---|---|
+| `400 Bad Request` | The `item` parameter is missing or the `min_price` value is not a valid integer |
+| `401 Unauthorized` | Missing or invalid API key |
+| `404 Not Found` | No transactions found matching the supplied filters |
+
+<Note>
+  Item identifiers match the internal Minecraft namespaced IDs in uppercase snake-case without the `minecraft:` prefix. For example, `minecraft:netherite_ingot` becomes `NETHERITE_INGOT`.
+</Note>

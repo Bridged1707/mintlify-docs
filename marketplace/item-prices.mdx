@@ -1,0 +1,116 @@
+---
+title: "Track Live Item Prices on Praeto Markets"
+sidebarTitle: "Item Prices"
+description: "See how Praeto tracks live Minecraft item prices using VWAP and market candles, and learn to read price data so you can trade at the right time."
+---
+
+Praeto tracks the price of every actively traded item on the server using real transaction data. Instead of a single snapshot, the price system uses volume-weighted averages and candlestick history — the same tools real-world commodity traders use — so you always know what an item is genuinely worth right now.
+
+## Market Symbols
+
+Every tracked item is identified by a **market symbol** — a short code linked to an item name and its pricing configuration.
+
+```
+Symbol:  DIAMOND
+Name:    Diamond
+Price:   [current VWAP in diamonds]
+Method:  VWAP
+```
+
+Each symbol has the following properties:
+
+| Field | Description |
+|---|---|
+| `code` | Short uppercase identifier for the item (e.g. `DIAMOND`, `IRON_INGOT`) |
+| `name` | Human-readable item name |
+| `pricing_method` | Always `vwap` — prices are volume-weighted averages |
+| `display_price_source` | Always `market_candles` — prices display from candlestick data |
+
+## What Is VWAP?
+
+**VWAP** stands for volume-weighted average price. It is the fairest single-number representation of an item's market price because it weights each transaction by how many items changed hands — large trades count for more than tiny ones.
+
+<Info>
+  A simple average of transaction prices can be skewed by outliers (one player selling a single item for an absurd amount). VWAP smooths this out by anchoring the average to actual trade volume.
+</Info>
+
+For example, if 100 iron ingots sold at 1 diamond each and 10 sold at 5 diamonds each, the simple average is 1.36 diamonds — but VWAP gives 1.36 diamonds weighted toward the bulk trade: the market price is much closer to 1 diamond.
+
+## Market Candles
+
+Market candles are price snapshots recorded at regular intervals. Each candle captures:
+
+- **Open** — the first price recorded in the interval
+- **High** — the highest transaction price in the interval
+- **Low** — the lowest transaction price in the interval
+- **Close** — the last price recorded in the interval
+- **Volume** — total number of items traded in the interval
+
+Candles let you see not just the current price but how prices have moved over time — useful for spotting trends before you list or buy.
+
+<Tip>
+  Use candle history to time your trades. If the close price has been rising steadily over the last several candles, selling now may yield more diamonds than selling last week. If prices are dropping, consider waiting before you buy in bulk.
+</Tip>
+
+## Asset Families
+
+Related forms of an item are grouped into **asset families**. For example, a raw ore, its ingot, and its block form might all belong to the same family. This lets you compare prices across item forms and spot arbitrage opportunities (e.g., smelting raw ore and selling ingots if the ingot VWAP is high enough to justify the fuel cost).
+
+Each asset family has:
+
+| Field | Description |
+|---|---|
+| `family_code` | Unique code for the family (e.g. `IRON`) |
+| `name` | Human-readable family name (e.g. `Iron`) |
+| `base_unit_name` | The primary unit of the family (e.g. `Iron Ingot`) |
+
+## Looking Up Prices
+
+<Tabs>
+  <Tab title="In-Game">
+    Open the market board from the in-game menu. Search for any item by name or symbol code. The board displays the current VWAP price, the 24-hour price change, and a mini candle chart for recent history.
+  </Tab>
+  <Tab title="API">
+    Query live and historical price data programmatically. Use the transaction lookup endpoint to pull recent trades and calculate your own metrics:
+
+    ```http
+    GET /v1/transactions/lookup/auction?item=DIAMOND&min_price=5
+    ```
+
+    ```http
+    GET /v1/transactions/lookup/shop?item=DARK_OAK_LOG&shop_type=buyFromShop
+    ```
+
+    Both endpoints return transaction records you can aggregate to verify current VWAP or identify price trends.
+  </Tab>
+</Tabs>
+
+## Reading a Price Summary
+
+When you look up an item, you'll see a summary like this:
+
+```
+Symbol:        IRON_INGOT
+Name:          Iron Ingot
+Family:        Iron (base unit: Iron Ingot)
+Pricing:       VWAP
+Current Price: 2.4 diamonds
+24h Change:    +0.2 diamonds (+9.1%)
+Data Source:   Market Candles
+```
+
+Use the 24h change to gauge momentum. A rising price signals strong demand; a falling price may mean sellers are undercutting each other or demand has dropped.
+
+## Tips for Smart Trading
+
+<Accordion title="Compare family members before listing">
+  Check all symbols within an asset family before deciding which form to sell. If iron blocks are fetching more per ingot-equivalent than raw ingots, it may pay to craft before you sell.
+</Accordion>
+
+<Accordion title="Don't price below VWAP without reason">
+  If you list a chest shop well below the current VWAP, your stock will sell out fast — but you'll leave diamonds on the table. Use VWAP as your floor when setting shop prices.
+</Accordion>
+
+<Accordion title="Watch volume, not just price">
+  A high price with low volume may not be reliable. If only one or two trades set a candle's high, the real achievable price is probably closer to the VWAP. High volume + stable price = trustworthy data.
+</Accordion>

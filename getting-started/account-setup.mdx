@@ -1,0 +1,120 @@
+---
+title: "Set Up Your Praeto Player Account"
+sidebarTitle: "Account Setup"
+description: "Create your Praeto player profile by joining the Minecraft server and activating your diamond wallet, credit wallet, and transaction history ledger."
+---
+
+Your Praeto account is the foundation for everything on the platform — your diamond wallet, your shop listings, your trade history, and your membership benefits all live here. This page explains how accounts are structured, what gets created automatically when you first join, and how to confirm that your account is fully active.
+
+## How Accounts Work
+
+A Praeto account is defined by two identifiers that must both be present before economy features activate:
+
+| Identifier | Purpose |
+|---|---|
+| **Minecraft Username** | Ties your in-game character to your Praeto profile |
+| **Discord UUID** | Primary account key used for authentication, wallet access, and notifications |
+
+Neither identifier alone is enough. Your Minecraft username lets you connect to the server, but your diamond wallet, marketplace access, and weekly credits only switch on once your Discord UUID is linked.
+
+<Note>
+  Your Discord UUID never changes even if you change your Discord display name or username. This means renaming your Discord account will **not** break your Praeto link.
+</Note>
+
+## What Gets Created
+
+When you join the server for the first time and complete Discord linking, Praeto automatically provisions three things for your account:
+
+<CardGroup cols={3}>
+  <Card title="Diamond Wallet" icon="gem">
+    Your primary balance. All marketplace purchases, sales, auction settlements, and prediction market payouts flow through this wallet.
+  </Card>
+  <Card title="Credit Wallet" icon="wallet">
+    Receives your weekly membership credit allowance. Credits are deposited every Monday and must be spent before the following deposit — they do not roll over.
+  </Card>
+  <Card title="Transaction Ledger" icon="list">
+    An append-only log of every diamond movement on your account — deposits, withdrawals, shop sales, wager outcomes, and credit grants. Fully searchable from the web dashboard.
+  </Card>
+</CardGroup>
+
+## Set Up Your Account
+
+<Steps>
+  <Step title="Join the Praeto Server">
+    Launch Minecraft Java Edition and connect to:
+
+    ```
+    play.praeto.gg
+    ```
+
+    On first connection, Praeto registers your Minecraft username and creates a placeholder account record. Your wallet exists at this point but holds a zero balance and remains inactive until Discord is linked.
+
+    <Tip>
+      Use the same Minecraft account you plan to play on long-term. Changing your username later is possible but requires a support request to re-map the identifier.
+    </Tip>
+  </Step>
+
+  <Step title="Link Your Discord Account">
+    Run the link command in the Minecraft chat to begin the verification flow:
+
+    ```
+    /link
+    ```
+
+    Praeto generates a one-time 6-digit code valid for 10 minutes. Take that code to the `#verify` channel in the Praeto Discord server and send it to the bot:
+
+    ```
+    /verify <code>
+    ```
+
+    The bot confirms success in the channel and Praeto immediately activates your diamond wallet, credit wallet, and ledger.
+
+    For a full walkthrough of this process, see [Link Your Discord Account](/getting-started/discord-link).
+  </Step>
+
+  <Step title="Verify Your Wallet Is Active">
+    Once the Discord link is confirmed, check that your account is fully live by running the balance command in-game:
+
+    ```
+    /balance
+    ```
+
+    A successful response looks like this:
+
+    ```
+    Diamond Wallet:  3 💎  (starter credit applied)
+    Credit Wallet:   0 💎
+    Next credit drop: Monday
+    ```
+
+    If you see an error or a "wallet inactive" message, the Discord link did not complete. Re-run `/link` in-game and repeat the verification step.
+  </Step>
+
+  <Step title="Review Your Account on the Web Dashboard">
+    Visit **app.praeto.gg** and sign in with the Discord account you linked. The dashboard gives you a full view of:
+
+    - Your current diamond and credit balances
+    - Your complete transaction history with filters by date, type, and counterparty
+    - Your active shop listings and open buy orders
+    - Your membership tier and next credit drop time
+
+    <Info>
+      The web dashboard is read-only for balances and history. To execute trades, open shops, or place wagers, use the in-game commands or the Praeto Discord bot.
+    </Info>
+  </Step>
+</Steps>
+
+## Account Verification Checklist
+
+Use this checklist to confirm your account is fully active before you start trading:
+
+- [ ] Connected to `play.praeto.gg` with your Minecraft Java Edition account
+- [ ] Ran `/link` in-game and received a verification code
+- [ ] Sent `/verify <code>` to the Praeto bot in the Discord `#verify` channel
+- [ ] Received confirmation from the bot that the link succeeded
+- [ ] Ran `/balance` in-game and saw a valid wallet response
+- [ ] Signed into `app.praeto.gg` with Discord and confirmed your ledger is visible
+
+<Warning>
+  Do not share your verification code with anyone. Praeto staff will never ask for it. Anyone requesting your code is attempting to link their Discord to your Minecraft account.
+</Warning>

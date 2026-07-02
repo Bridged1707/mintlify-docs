@@ -1,0 +1,61 @@
+---
+title: "Praeto API: Query Markets, Shops & Auctions"
+sidebarTitle: "Introduction"
+description: "Query Praeto SMP transaction history, live item prices, auction results, and shop data through a simple REST API built for players and developers."
+---
+
+The Praeto REST API (UTCON) gives you programmatic access to the player-driven economy running on the Praeto SMP. Use it to query auction transaction history, shop transaction records, and live market prices for any tracked Minecraft item — all over standard HTTP.
+
+## Base URL
+
+All API endpoints are versioned under the `/v1` prefix:
+
+```
+https://api.praeto.gg/v1
+```
+
+Every request you make should target this base URL. Paths documented throughout this reference assume this prefix.
+
+## Available Resources
+
+The API exposes two top-level resource groups:
+
+| Resource | Description |
+|---|---|
+| **Transactions** | Query historical auction and shop transactions filtered by item, price, and transaction type |
+| **Markets** | Retrieve the list of tracked market symbols and their live VWAP price data |
+
+## Quick Example
+
+The following request fetches recent auction transactions for `DIAMOND` with a minimum price of 5:
+
+```bash
+curl "https://api.praeto.gg/v1/transactions/lookup/auction?item=DIAMOND&min_price=5" \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+## Authentication
+
+Every request to the Praeto API requires an API key passed as a Bearer token in the `Authorization` header. See the [Authentication](/api-reference/authentication) page to learn how to obtain and use your key.
+
+## Rate Limiting
+
+The API enforces rate limits to keep the service fair and stable for all users. If you exceed the limit, the server returns a `429 Too Many Requests` response. Build in appropriate back-off logic and avoid polling endpoints in tight loops.
+
+<Note>
+  Exact rate limit thresholds are subject to change. Check the `Retry-After` header on a `429` response for the number of seconds to wait before retrying.
+</Note>
+
+## Explore the API
+
+<CardGroup cols={3}>
+  <Card title="Authentication" icon="key" href="/api-reference/authentication">
+    Get your API key and learn how to authenticate every request
+  </Card>
+  <Card title="Transactions" icon="receipt" href="/api-reference/transactions/lookup-auction">
+    Query auction and shop transaction history filtered by item and price
+  </Card>
+  <Card title="Markets" icon="chart-line" href="/api-reference/markets/symbols">
+    Browse tracked market symbols and pull live VWAP price data
+  </Card>
+</CardGroup>

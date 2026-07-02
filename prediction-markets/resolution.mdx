@@ -1,0 +1,85 @@
+---
+title: "How Praeto Prediction Markets Resolve"
+sidebarTitle: "Resolution"
+description: "Understand how Praeto prediction markets resolve — how outcomes are determined, how payouts are calculated from implied prices, and when diamonds are awarded."
+---
+
+Every prediction market on Praeto has a defined end point. Once the closing deadline passes, an admin sets the outcome, the system calculates each winner's payout, and the diamonds land in the right balances automatically. Here is exactly how that process works.
+
+## Step 1 — The Market Closes
+
+Each market has a `closes_at` timestamp. When that moment arrives:
+
+- No new wagers are accepted
+- The pool amounts and implied prices for all options are frozen
+- The market status changes from `open` to `closed`
+
+The **implied prices locked at close** are the prices used to calculate payouts. Any price movement that happened between when you placed your wager and when the market closed is baked into your final payout.
+
+## Step 2 — Admin Sets the Outcome
+
+Depending on the market's `resolution_mode`, the admin does one of two things:
+
+| Resolution mode | What the admin does |
+|-----------------|---------------------|
+| `admin_set_option` | Selects the winning option label directly (used for **categorical** markets) |
+| `admin_set_numeric` | Enters the raw numeric result (used for **numeric range** markets — the system finds the matching bracket automatically) |
+
+Once the admin submits the result, the market status moves to `resolved` and payout processing begins immediately.
+
+## Step 3 — Payouts Are Calculated and Distributed
+
+The payout formula is:
+
+```
+payout = your_wager / implied_price_at_resolution
+```
+
+Your payout is calculated using the implied price of your winning option **at the moment the market closed** — not when you placed your wager. The higher the implied price at close, the lower your payout (and vice versa), because a higher implied price means more of the total pool was concentrated on your option.
+
+Diamonds are credited to your balance automatically after the admin resolves the market. You do not need to claim anything.
+
+## Worked Example
+
+> **Market:** Nether Star Price at End of Month
+> **Your option:** Over 1000
+> **Your wager:** 100 diamonds
+> **Implied price at close:** 0.25
+
+At the end of the month, the Nether Star settles at **1,200 diamonds** — squarely inside the "Over 1000" bracket. Your option wins.
+
+```
+payout = 100 / 0.25 = 400 diamonds
+```
+
+You receive **400 diamonds**: your original 100 back plus 300 in profit. The 0.25 implied price reflects the fact that only 25% of the total pool was on your bracket — so winners split the whole pool proportionally, and you receive four times your stake.
+
+<Info>
+  Players who wagered on "Under 500" or "500 to 1000" receive nothing back. All diamonds wagered on losing options flow to the winners through this pool-based payout system.
+</Info>
+
+## Frequently Asked Questions
+
+<Accordion title="What happens if I pick the wrong option?">
+  If your option does not match the resolved outcome, your wager is lost entirely. Praeto prediction markets are winner-takes-pool — losing wagers fund the payouts for winning wagers. There is no partial refund or consolation amount for picking the wrong option.
+</Accordion>
+
+<Accordion title="How long after closing do I get paid?">
+  Payouts are processed as soon as an admin resolves the market. There is no fixed SLA, but admins aim to resolve markets promptly after the real-world event concludes. You will see your diamond balance update the moment resolution is confirmed — check your balance or transaction history to verify.
+</Accordion>
+
+<Accordion title="What if the implied price changes between my wager and the close?">
+  Your payout is always based on the implied price **at the moment the market closes**, not at the moment you placed your wager. If more players pile onto your option after you bet, the implied price rises and your payout decreases. If players move away from your option, the implied price falls and your payout increases. This is by design — the pool is redistributed proportionally based on the final distribution of wagers.
+</Accordion>
+
+<Accordion title="Can a market be cancelled rather than resolved?">
+  In rare cases an admin may void a market — for example, if the underlying event does not take place. If a market is voided, all wagers are refunded in full and no payout calculation runs. The market status will reflect the void, and your diamonds return to your balance.
+</Accordion>
+
+<Accordion title="How is the implied price calculated?">
+  The implied price for an option equals that option's pool amount divided by the total pool across all options in the market. For example, if 250 diamonds are wagered on "Over 1000" and the total pool is 1,000 diamonds, the implied price is 0.25. Every new wager shifts the implied prices across all options in real time.
+</Accordion>
+
+<Accordion title="What if two options could both match the numeric result?">
+  Numeric range brackets are defined with non-overlapping boundaries when the market is created, so any numeric result falls into exactly one bracket. The admin enters the raw number and the system finds the one matching bracket automatically — there is no ambiguity or tie.
+</Accordion>

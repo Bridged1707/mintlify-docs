@@ -1,0 +1,122 @@
+---
+title: "Categorical vs. Numeric Range Prediction Markets"
+sidebarTitle: "Market Types"
+description: "Explore Praeto's two prediction market types — categorical markets for named options and numeric range markets for price or quantity bracket outcomes."
+---
+
+Praeto prediction markets come in two flavours, each suited to a different kind of in-game event. Knowing the difference helps you read a market listing faster and spot where the interesting bets are hiding.
+
+<Tabs>
+  <Tab title="Categorical">
+    ## Categorical Markets
+
+    A categorical market presents a fixed set of **named options** and asks you to pick one. There are no numerical boundaries — each option is a distinct label, and exactly one of those labels will be declared the winner by the admin at resolution.
+
+    Categorical markets are the right format whenever the outcome is a name, a side, or a discrete choice rather than a number.
+
+    ### When you will see categorical markets
+
+    - **Player votes** — the community votes for a player, and the winner is the option that receives the most votes
+    - **Coin flips** — a simple Heads vs. Tails market, resolved by an in-game coin toss
+    - **Any discrete choice** — "Which biome will the next build event take place in?" and similar questions where the options are clearly named and mutually exclusive
+
+    ### Example: Choose a Player
+
+    > **Market:** Choose a Player
+    > **Type:** `categorical`
+    > **Resolution mode:** `admin_set_option`
+
+    | Option | Label | Implied Price | Pool Amount |
+    |--------|-------|--------------|-------------|
+    | `HEADS` | Heads | 0.62 | 310 💎 |
+    | `TAILS` | Tails | 0.38 | 190 💎 |
+
+    In this market the crowd heavily favours Heads at 62%. Backing Tails at 0.38 means a winning wager of 100 diamonds pays out roughly **263 diamonds** — a better return if you think the market is wrong.
+
+    ### Example: Player Name Vote
+
+    > **Market:** End-of-Season MVP Vote
+    > **Type:** `categorical`
+    > **Resolution mode:** `admin_set_option`
+
+    | Option | Label | Implied Price | Pool Amount |
+    |--------|-------|--------------|-------------|
+    | `player_alex` | Alex | 0.45 | 450 💎 |
+    | `player_blake` | Blake | 0.30 | 300 💎 |
+    | `player_casey` | Casey | 0.25 | 250 💎 |
+
+    Three options share the pool. Casey is the long shot — a 100-diamond wager on Casey returns **400 diamonds** if the vote goes their way.
+
+    <Note>
+      In a categorical market you are picking a single label. You cannot split one wager across multiple options — place separate wagers if you want to cover more than one outcome.
+    </Note>
+  </Tab>
+  <Tab title="Numeric Range">
+    ## Numeric Range Markets
+
+    A numeric range market presents a set of **bracketed intervals** and asks you to predict which bracket the actual outcome will fall into. Instead of picking a name, you are picking a range — for example, whether a price ends up below 500, between 500 and 1000, or above 1000.
+
+    Numeric range markets are ideal for economy questions where the result is a number but you do not need to predict the exact value.
+
+    ### When you will see numeric range markets
+
+    - **Economy prices** — what will a Nether Star trade for at month-end?
+    - **Quantity outcomes** — how many diamonds will the top trader move this week?
+    - **Any measurable result** — any in-game value that lands somewhere on a number line
+
+    ### How brackets work
+
+    Each option in a numeric range market carries a `range_min` and `range_max`. When the admin sets the numeric result, the system automatically determines which bracket it falls into and declares that option the winner.
+
+    | Bracket boundary | Behaviour |
+    |-----------------|-----------|
+    | `range_min` is null | No lower bound — "Under X" |
+    | `range_max` is null | No upper bound — "Over X" |
+    | Both set | Inclusive range between the two values |
+
+    ### Example: Nether Star Price at End of Month
+
+    > **Market:** Nether Star Price at End of Month
+    > **Type:** `numeric_range`
+    > **Resolution mode:** `admin_set_numeric`
+
+    | Option | Label | Range | Implied Price | Pool Amount |
+    |--------|-------|-------|--------------|-------------|
+    | `under_500` | Under 500 | < 500 | 0.20 | 200 💎 |
+    | `500_to_1000` | 500 to 1000 | 500 – 1000 | 0.55 | 550 💎 |
+    | `over_1000` | Over 1000 | > 1000 | 0.25 | 250 💎 |
+
+    The market thinks a mid-range price (500–1000) is the most likely outcome at 55%. But if you believe the Nether Star economy is heating up, backing "Over 1000" at 0.25 means a 100-diamond wager returns **400 diamonds** if the price closes above 1,000.
+
+    <Tip>
+      When reading a numeric range market, consider the full economic context — recent trade history, supply changes, and upcoming server events can all signal which bracket is most likely. The market price reflects crowd opinion, not certainty.
+    </Tip>
+
+    <Note>
+      The admin enters the raw numeric result (e.g., `1,200`) at resolution, and the system matches it to the correct bracket automatically. You do not need to worry about boundary edge cases — the bracket definitions are set when the market is created.
+    </Note>
+  </Tab>
+</Tabs>
+
+## Quick Comparison
+
+<CardGroup cols={2}>
+  <Card title="Categorical" icon="tag">
+    **Best for:** Named outcomes with no numeric value
+    
+    **Options look like:** Player names, Heads / Tails, biome names
+    
+    **You pick:** One label from the list
+    
+    **Resolved by:** Admin selects the winning option label
+  </Card>
+  <Card title="Numeric Range" icon="chart-bar">
+    **Best for:** Measurable outcomes — prices, counts, quantities
+    
+    **Options look like:** Under 500 / 500–1000 / Over 1000
+    
+    **You pick:** One bracket from the list
+    
+    **Resolved by:** Admin enters the raw number; system finds the bracket
+  </Card>
+</CardGroup>

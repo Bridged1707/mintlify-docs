@@ -1,0 +1,77 @@
+---
+title: "Authenticate Requests to the Praeto API"
+sidebarTitle: "Authentication"
+description: "Learn how to obtain your Praeto API key from the dashboard or Discord bot and pass it as a Bearer token to authenticate every API request."
+---
+
+Every request to the Praeto API must include a valid API key. The API uses Bearer token authentication — you attach your key to the `Authorization` header of each HTTP request, and the server verifies your identity before returning any data.
+
+<Warning>
+  Never share your API key publicly or commit it to version control. Anyone who holds your key can make requests on your behalf. If your key is compromised, regenerate it immediately from the Praeto dashboard.
+</Warning>
+
+## Get Your API Key
+
+You can obtain an API key through either of the following methods:
+
+**Praeto Dashboard**
+
+Log in to the Praeto player dashboard and navigate to **Settings → API Keys**. Click **Generate Key** to create a new key. Copy it immediately — it is only shown once.
+
+**Discord Bot**
+
+Run the following slash command in any Praeto Discord channel where the bot is present:
+
+```
+/api generate-key
+```
+
+The bot will DM you your new API key directly.
+
+## Authenticate a Request
+
+Pass your API key as a Bearer token in the `Authorization` header on every request:
+
+```
+Authorization: Bearer YOUR_API_KEY
+```
+
+### Example
+
+```bash
+curl "https://api.praeto.gg/v1/transactions/lookup/auction?item=DIAMOND&min_price=5" \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+Replace `YOUR_API_KEY` with the key you generated above.
+
+<Tip>
+  Store your API key in an environment variable (e.g., `PRAETO_API_KEY`) and reference it in your scripts rather than hard-coding it inline. This makes key rotation much easier.
+</Tip>
+
+## Authentication Errors
+
+If your request fails authentication, the API returns one of the following HTTP error codes:
+
+| Status | Meaning |
+|---|---|
+| `401 Unauthorized` | No API key was provided, or the key format is invalid |
+| `403 Forbidden` | The key is valid but does not have permission to access the requested resource |
+
+### 401 Response Example
+
+```json
+{
+  "detail": "Not authenticated"
+}
+```
+
+### 403 Response Example
+
+```json
+{
+  "detail": "You do not have permission to access this resource"
+}
+```
+
+If you receive a `401`, double-check that you are including the `Authorization` header and that it follows the `Bearer <key>` format exactly. If you receive a `403`, ensure your account has the appropriate access level — some endpoints may be restricted to specific player roles or tiers.

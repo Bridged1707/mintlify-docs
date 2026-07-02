@@ -1,0 +1,109 @@
+---
+title: "Market Symbols: Tracked Items on Praeto"
+sidebarTitle: "Symbols"
+description: "Retrieve the full list of Minecraft items actively tracked on Praeto's economy market, including their VWAP pricing method and market candle data source."
+---
+
+The symbols endpoint returns every Minecraft item that Praeto's UCTE market service currently tracks. Each symbol represents one tradeable item on the server economy and carries metadata about how its price is calculated and displayed. Use this endpoint to discover which items have live market data before querying prices.
+
+## Endpoint
+
+```
+GET /v1/markets/symbols
+```
+
+This endpoint requires no query parameters. It always returns the full list of tracked market symbols.
+
+## Example Request
+
+<CodeGroup>
+  ```bash cURL
+  curl "https://api.praeto.gg/v1/markets/symbols" \
+    -H "Authorization: Bearer YOUR_API_KEY"
+  ```
+
+  ```python Python
+  import requests
+
+  headers = {"Authorization": "Bearer YOUR_API_KEY"}
+  response = requests.get("https://api.praeto.gg/v1/markets/symbols", headers=headers)
+  print(response.json())
+  ```
+
+  ```javascript JavaScript
+  const response = await fetch("https://api.praeto.gg/v1/markets/symbols", {
+    headers: { Authorization: "Bearer YOUR_API_KEY" },
+  });
+  const symbols = await response.json();
+  console.log(symbols);
+  ```
+</CodeGroup>
+
+## Example Response
+
+```json
+[
+  {
+    "code": "DIAMOND",
+    "name": "Diamond",
+    "pricing_method": "vwap",
+    "display_price_source": "market_candles",
+    "is_active": true
+  },
+  {
+    "code": "DARK_OAK_LOG",
+    "name": "Dark Oak Log",
+    "pricing_method": "vwap",
+    "display_price_source": "market_candles",
+    "is_active": true
+  },
+  {
+    "code": "NETHERITE_INGOT",
+    "name": "Netherite Ingot",
+    "pricing_method": "vwap",
+    "display_price_source": "market_candles",
+    "is_active": true
+  }
+]
+```
+
+## Response Fields
+
+<ResponseField name="code" type="string">
+  The item's unique market identifier — an uppercase snake-case string matching the Minecraft item type (e.g., `DIAMOND`, `DARK_OAK_LOG`). Use this value as the `item` parameter in transaction lookup endpoints.
+</ResponseField>
+
+<ResponseField name="name" type="string">
+  The human-readable display name for the item as it appears in Praeto's market UI (e.g., `"Diamond"`, `"Dark Oak Log"`).
+</ResponseField>
+
+<ResponseField name="pricing_method" type="string">
+  The algorithm used to calculate this item's market price. Currently always `vwap` (volume-weighted average price) for all tracked symbols.
+</ResponseField>
+
+<ResponseField name="display_price_source" type="string">
+  The data source used when rendering the price in dashboards and in-game overlays. Currently always `market_candles`, meaning price is derived from aggregated OHLCV candle data.
+</ResponseField>
+
+<ResponseField name="is_active" type="boolean">
+  Whether this symbol is actively being tracked. When `false`, the item exists in the system but is not currently receiving price updates. Only symbols with `is_active: true` will return results from the prices endpoint.
+</ResponseField>
+
+## Filtering Inactive Symbols
+
+The response may include symbols with `is_active: false`. Before querying live prices, filter the list to only active symbols:
+
+```javascript
+const activeSymbols = symbols.filter((s) => s.is_active);
+```
+
+<Note>
+  **What is VWAP?** Volume-weighted average price (VWAP) calculates the average price of an item weighted by how many units were traded at each price level. Unlike a simple average, VWAP gives more weight to high-volume trades, making it a more accurate reflection of what the market is actually paying for an item at scale.
+</Note>
+
+## Error Responses
+
+| Status | Description |
+|---|---|
+| `401 Unauthorized` | Missing or invalid API key |
+| `503 Service Unavailable` | The UCTE market tracking service is temporarily unavailable |

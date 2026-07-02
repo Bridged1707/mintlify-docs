@@ -1,0 +1,98 @@
+---
+title: "How to Place a Wager on Praeto Markets"
+sidebarTitle: "Placing Wagers"
+description: "Place diamond wagers on prediction markets in Praeto — find an open market, choose your option, confirm your bet, and track live odds as they shift."
+---
+
+Placing a wager on Praeto is straightforward: find an open market, read the current odds, pick your option, and lock in your diamonds. This page walks you through every step and explains how to make sense of implied prices so you can wager with confidence.
+
+## Finding Open Markets
+
+You can browse prediction markets in two ways:
+
+- **In-game command** — run the prediction markets command from anywhere on the server to see a list of all currently open markets with their titles and closing times.
+- **Praeto website** — head to the Markets section of the site for a full listing with richer detail, including pool amounts, wager counts, and live implied prices for every option.
+
+Any market showing a status of `open` is accepting wagers right now. Markets with a future `closes_at` timestamp are still live — check that timestamp before you decide, because once the deadline passes the pool locks.
+
+## Reading a Market Listing
+
+Before you wager, take a moment to understand what the listing is telling you.
+
+| Field | What it means |
+|-------|--------------|
+| **Title** | The event or question being predicted |
+| **Description** | Additional context about the market and how it will resolve |
+| **Options** | The choices you can bet on |
+| **Pool amount** | Total diamonds wagered on that option so far |
+| **Implied price** | The market's current probability estimate for that option (0.0 – 1.0) |
+| **Wager count** | How many individual bets have been placed on that option |
+| **Closes at** | The deadline after which no new wagers are accepted |
+
+The implied prices across all options in a market always sum to roughly 1.0 (100%). An option with an implied price of `0.25` means the current pool gives it a 25% chance of winning.
+
+## Placing a Wager Step by Step
+
+<Steps>
+  <Step title="Choose an open market">
+    Pick a market whose event you feel confident predicting. Check the `closes_at` time to make sure you have enough time to act.
+  </Step>
+  <Step title="Review all options and implied prices">
+    Read every option and its implied price before committing. Look for options you believe the market has undervalued — those offer the best potential returns.
+  </Step>
+  <Step title="Select your option">
+    Choose the single option you want to back. For a **categorical** market this is a named label (e.g., a player name or "Tails"). For a **numeric range** market this is a bracket (e.g., "500 to 1000").
+  </Step>
+  <Step title="Enter your diamond amount">
+    Type in the number of diamonds you want to wager. Make sure you have that amount available in your balance — wagers are deducted immediately on confirmation.
+  </Step>
+  <Step title="Confirm your wager">
+    Review the market code, your chosen option, and the amount, then confirm. Your wager is recorded instantly against your Discord account and cannot be changed.
+  </Step>
+  <Step title="Check your active wagers">
+    After placing, verify your wager appears in your active wagers list — visible in-game or on the website. Note the implied price at the time of your wager for your own reference, since the implied price can move before the market closes.
+  </Step>
+</Steps>
+
+<Warning>
+  Wagers are final the moment you confirm them. You cannot cancel, reduce, or redirect a wager once it has been placed — so double-check your option and your diamond amount before you hit confirm.
+</Warning>
+
+## Calculating Your Potential Payout
+
+Your potential payout depends on the implied price of your option **at the time the market resolves**, not at the time you placed your wager:
+
+```
+payout = your_wager / implied_price_at_resolution
+```
+
+### Example
+
+You wager **200 diamonds** on an option currently sitting at an implied price of **0.40**.
+
+- If the implied price is still **0.40** when the market resolves and your option wins:
+  `200 / 0.40 = 500 diamonds`
+- If more players pile onto your option before closing and the implied price rises to **0.50**:
+  `200 / 0.50 = 400 diamonds`
+- If your option becomes less popular and the implied price falls to **0.20**:
+  `200 / 0.20 = 1,000 diamonds`
+
+<Info>
+  Because the implied price can drift between when you place your wager and when the market closes, your final payout is not guaranteed at bet time. Markets with heavy late wagering can shift noticeably in the final hours.
+</Info>
+
+## Tracking Your Active Wagers
+
+You can view all your open wagers at any time. Each entry shows:
+
+- The **market title** and code
+- The **option** you backed
+- The **amount** you wagered in diamonds
+- The **current implied price** of your option
+- The **market status** (open or closed)
+
+Keep an eye on markets you have wagered on as they approach their closing time — watching implied prices shift tells you how other players are reading the same event.
+
+<Tip>
+  Spreading your diamonds across multiple markets rather than concentrating everything on one is a solid way to stay in the game longer and learn how odds behave before you go big.
+</Tip>

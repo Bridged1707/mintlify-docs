@@ -1,0 +1,73 @@
+---
+title: "Prediction Markets: Wager Diamonds on Events"
+sidebarTitle: "Overview"
+description: "Bet diamonds on in-game events, track live odds, and earn rewards when your prediction is correct — Praeto's player-driven prediction markets explained."
+---
+
+Prediction markets on Praeto let you put your diamonds where your instincts are. Browse open markets, pick the outcome you believe in, and watch the odds shift in real time as other players place their wagers — all resolved by admins against real in-game events.
+
+## How Prediction Markets Work
+
+Every market moves through a simple lifecycle: players wager diamonds while the market is open, the market closes at a scheduled time, an admin resolves it against the actual outcome, and winners receive their payouts automatically.
+
+<Steps>
+  <Step title="Browse open markets">
+    Find a market covering an upcoming event — a player vote, an economy price, a coin flip, or anything else the server is tracking.
+  </Step>
+  <Step title="Pick your option and wager diamonds">
+    Choose the outcome you think will happen and commit a diamond amount. Your wager is locked in immediately.
+  </Step>
+  <Step title="Watch the odds">
+    Every new wager shifts the implied prices across all options. Check back any time to see where the market stands.
+  </Step>
+  <Step title="Market closes">
+    When the `closes_at` deadline passes, no new wagers are accepted. The pool is frozen at that point.
+  </Step>
+  <Step title="Admin resolves the market">
+    An admin sets the winning option (or numeric result) based on what actually happened in-game.
+  </Step>
+  <Step title="Winners are paid out">
+    Your payout lands in your diamond balance automatically. The more accurately you read the odds, the more you earn.
+  </Step>
+</Steps>
+
+## What Events Are Covered
+
+Markets are created around real Praeto server events. You will find markets for:
+
+- **Player votes** — community polls where any player name could win
+- **Economy prices** — will a Nether Star trade above or below a threshold by month-end?
+- **Chance events** — classic heads-or-tails coin flips
+- **Server milestones** — anything the community wants to speculate on
+
+New markets appear regularly, so check back often to find fresh opportunities.
+
+## Market Statuses
+
+Every market carries one of three statuses:
+
+| Status | Meaning |
+|--------|---------|
+| `open` | Wagers are being accepted right now |
+| `closed` | The deadline has passed; no new wagers allowed, awaiting resolution |
+| `resolved` | The outcome has been set and payouts have been distributed |
+
+Only `open` markets accept new wagers. If a market you are interested in shows `closed`, you missed the wagering window — but you can still watch to see how it resolves.
+
+<Tip>
+  Always check the implied prices across all options before you commit your diamonds. An option priced at 0.10 means the market thinks it has a 10% chance of winning — a long shot that pays out 10× if you are right. An option at 0.80 is the heavy favourite but pays out much less. Finding options you believe are underpriced by the market is where the real edge lives.
+</Tip>
+
+## Explore Further
+
+<CardGroup cols={3}>
+  <Card title="Placing Wagers" icon="gem" href="/prediction-markets/placing-wagers">
+    Step-by-step guide to finding open markets, reading the odds, and confirming your bet.
+  </Card>
+  <Card title="Market Types" icon="list" href="/prediction-markets/market-types">
+    Understand the difference between categorical and numeric range markets with real examples.
+  </Card>
+  <Card title="Resolution" icon="flag-checkered" href="/prediction-markets/resolution">
+    Learn how outcomes are determined, how your payout is calculated, and when diamonds arrive.
+  </Card>
+</CardGroup>

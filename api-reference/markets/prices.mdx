@@ -1,0 +1,139 @@
+---
+title: "Market Prices: Live VWAP Data for Items"
+sidebarTitle: "Prices"
+description: "Retrieve live VWAP price data and market candle statistics for all actively tracked Minecraft items on the Praeto SMP economy via the REST API."
+---
+
+The prices endpoint returns current VWAP price data for every item actively tracked by Praeto's UCTE market service. Prices are computed from aggregated market candle data and reflect real transaction activity on the SMP. Use the optional `symbol` parameter to pull pricing for a single item rather than the entire market.
+
+<Tip>
+  Poll this endpoint before listing items on the auction house or stocking a shop. Comparing your intended price against the current VWAP lets you undercut the market slightly for a faster sale, or price above VWAP when supply is low and demand is high.
+</Tip>
+
+## Endpoint
+
+```
+GET /v1/markets/prices
+```
+
+## Query Parameters
+
+<ParamField query="symbol" type="string">
+  Filter the response to a single market symbol. Pass the item's `code` value as returned by the [symbols endpoint](/api-reference/markets/symbols) (e.g., `DIAMOND`, `DARK_OAK_LOG`). Omit this parameter to retrieve prices for all active symbols.
+</ParamField>
+
+## Example Requests
+
+<Tabs>
+  <Tab title="All Symbols">
+    ```bash
+    curl "https://api.praeto.gg/v1/markets/prices" \
+      -H "Authorization: Bearer YOUR_API_KEY"
+    ```
+  </Tab>
+  <Tab title="Single Symbol">
+    ```bash
+    curl "https://api.praeto.gg/v1/markets/prices?symbol=DIAMOND" \
+      -H "Authorization: Bearer YOUR_API_KEY"
+    ```
+  </Tab>
+</Tabs>
+
+<CodeGroup>
+  ```python Python
+  import requests
+
+  headers = {"Authorization": "Bearer YOUR_API_KEY"}
+
+  # All symbols
+  response = requests.get("https://api.praeto.gg/v1/markets/prices", headers=headers)
+
+  # Single symbol
+  response = requests.get(
+      "https://api.praeto.gg/v1/markets/prices",
+      params={"symbol": "DIAMOND"},
+      headers=headers,
+  )
+  print(response.json())
+  ```
+
+  ```javascript JavaScript
+  const headers = { Authorization: "Bearer YOUR_API_KEY" };
+
+  // All symbols
+  const allPrices = await fetch("https://api.praeto.gg/v1/markets/prices", { headers });
+
+  // Single symbol
+  const diamondPrice = await fetch(
+    "https://api.praeto.gg/v1/markets/prices?symbol=DIAMOND",
+    { headers }
+  );
+  ```
+</CodeGroup>
+
+## Example Response
+
+```json
+[
+  {
+    "symbol_code": "DIAMOND",
+    "price": 11.42,
+    "pricing_method": "vwap",
+    "candle_count": 320,
+    "last_updated": "2024-11-14T10:30:00Z"
+  },
+  {
+    "symbol_code": "DARK_OAK_LOG",
+    "price": 1.87,
+    "pricing_method": "vwap",
+    "candle_count": 512,
+    "last_updated": "2024-11-14T10:28:45Z"
+  },
+  {
+    "symbol_code": "NETHERITE_INGOT",
+    "price": 148.00,
+    "pricing_method": "vwap",
+    "candle_count": 44,
+    "last_updated": "2024-11-14T10:15:03Z"
+  }
+]
+```
+
+## Response Fields
+
+<ResponseField name="symbol_code" type="string">
+  The unique market identifier for this item, matching the `code` field from the [symbols endpoint](/api-reference/markets/symbols) (e.g., `DIAMOND`).
+</ResponseField>
+
+<ResponseField name="price" type="number">
+  The current VWAP price for this item in diamonds. This value is a floating-point number reflecting the volume-weighted average across all recent candle data.
+</ResponseField>
+
+<ResponseField name="pricing_method" type="string">
+  The algorithm used to calculate this price. Always `vwap` for active market symbols.
+</ResponseField>
+
+<ResponseField name="candle_count" type="integer">
+  The number of market candles (OHLCV data points) used to compute the current VWAP. A higher candle count generally indicates a more liquid and reliable price estimate.
+</ResponseField>
+
+<ResponseField name="last_updated" type="string">
+  ISO 8601 UTC timestamp of the most recent candle that contributed to this price calculation. Use this to determine how fresh the data is before acting on it.
+</ResponseField>
+
+## Understanding Candle Count
+
+A low `candle_count` (e.g., fewer than 20) means the VWAP is based on limited trade data and may not accurately reflect current market conditions. Items with thin trading history can have volatile price reads.
+
+<Note>
+  Only symbols with `is_active: true` appear in the prices response. If an item you expect to see is missing, check the [symbols endpoint](/api-reference/markets/symbols) to confirm it is actively tracked.
+</Note>
+
+## Error Responses
+
+| Status | Description |
+|---|---|
+| `400 Bad Request` | The `symbol` value is not a recognised market symbol code |
+| `401 Unauthorized` | Missing or invalid API key |
+| `404 Not Found` | The requested symbol exists but has no price data available |
+| `503 Service Unavailable` | The UCTE market pricing service is temporarily unavailable |

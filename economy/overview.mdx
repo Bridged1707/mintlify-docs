@@ -1,0 +1,78 @@
+---
+title: "How the Praeto Economy Works"
+sidebarTitle: "Overview"
+description: "Discover how Praeto's diamond-powered economy works — from player wallets and balance tracking to transaction types and weekly credit resets."
+---
+
+Praeto runs on a fully player-driven economy where diamonds are the universal currency. Every action — trading at shops, bidding at auctions, wagering in prediction markets, or upgrading your membership — flows through a single diamond wallet tied to your account.
+
+## The Core Loop
+
+The Praeto economy follows a straightforward cycle that rewards active players:
+
+<Steps>
+  <Step title="Earn Diamonds">
+    Mine diamonds underground, sell goods to other players, or win prediction market wagers to grow your wallet.
+  </Step>
+  <Step title="Spend at Shops & Auctions">
+    Use your diamonds to buy items from player-run shops or place bids in the auction house.
+  </Step>
+  <Step title="Wager in Prediction Markets">
+    Put diamonds on the line in Praeto's prediction markets. Correct calls multiply your stake; wrong ones cost you.
+  </Step>
+  <Step title="Buy Memberships">
+    Spend diamonds on a membership tier to unlock weekly credits, exclusive perks, and expanded access to platform features.
+  </Step>
+</Steps>
+
+## Key Economy Concepts
+
+<CardGroup cols={2}>
+  <Card title="Diamonds" icon="gem" href="/economy/diamonds">
+    Learn what diamonds are, how to earn them, and everything you can spend them on across the Praeto platform.
+  </Card>
+  <Card title="Balance" icon="wallet" href="/economy/balance">
+    Understand your diamond wallet — total balance, weekly credits, used credits, and when your credits reset.
+  </Card>
+  <Card title="Transactions" icon="arrow-right-arrow-left" href="/economy/transactions">
+    Browse your full transaction history and understand every type of diamond movement on your account.
+  </Card>
+  <Card title="Memberships" icon="star" href="/membership/overview">
+    Upgrade your membership tier to earn more weekly credits and unlock premium features each week.
+  </Card>
+</CardGroup>
+
+## Your Diamond Wallet
+
+Every Praeto player gets a diamond wallet the moment they join. Your wallet tracks:
+
+- **Total diamonds** — the running balance available to spend right now
+- **Weekly credits** — bonus diamonds granted by your membership tier each week
+- **Used credits** — how many of this week's credits you have already spent
+- **Spending history** — a full log of every transaction your account has made
+
+Your account is identified by both your Discord UUID and your Minecraft username (`mc_name`), so your wallet stays in sync across the platform and in-game.
+
+## Transaction Types
+
+Praeto records every diamond movement in the `balance_transactions` table. Common transaction kinds include:
+
+| Kind | When It Happens |
+|---|---|
+| `membership_purchase` | You buy or renew a membership tier |
+| `shop_purchase` | You buy an item from a player shop |
+| `auction_bid` | You place or win a bid in the auction house |
+| `wager` | You stake diamonds in a prediction market |
+| `wager_payout` | You receive winnings from a correct prediction |
+
+<Info>
+  Credits reset every week at the time shown in your balance display. Unspent credits do **not** roll over — use them before the reset to get the most from your membership.
+</Info>
+
+## Weekly Credit Resets
+
+Membership tiers grant weekly credits on a rolling schedule. Your `week_end_at` timestamp tells you exactly when your current credit window closes. Once the reset fires, your `used_credits` counter clears and a fresh batch of credits is added to your wallet.
+
+<Tip>
+  Check your reset time before the end of the week and plan any shop purchases or auction bids around it. Spending credits just before a reset maximises the value you extract from your membership.
+</Tip>

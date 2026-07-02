@@ -1,0 +1,137 @@
+---
+title: "GET /v1/transactions/lookup/shop"
+sidebarTitle: "Shop Lookup"
+description: "Query Praeto shop transaction history by Minecraft item type and transaction direction — filter buy-from-shop or sell-to-shop activity via the REST API."
+---
+
+The shop lookup endpoint returns historical shop transactions recorded on the Praeto SMP. A shop transaction occurs when a player either buys an item from a player-owned shop or sells an item into one. Use the `shop_type` parameter to distinguish between the two directions and track supply, demand, and pricing in the server economy.
+
+## Endpoint
+
+```
+GET /v1/transactions/lookup/shop
+```
+
+## Query Parameters
+
+<ParamField query="item" type="string" required>
+  The Minecraft item type to look up. Use the uppercase snake-case identifier for the item (e.g., `DARK_OAK_LOG`, `IRON_INGOT`). This field is case-sensitive.
+</ParamField>
+
+<ParamField query="shop_type" type="string">
+  Filter results by the direction of the shop transaction. Accepted values:
+
+  - `buyFromShop` — the player purchased items from the shop owner's stock
+  - `sellToShop` — the player sold items into the shop owner's stock
+
+  Omit this parameter to return transactions of both types.
+</ParamField>
+
+## Example Request
+
+<CodeGroup>
+  ```bash cURL
+  curl "https://api.praeto.gg/v1/transactions/lookup/shop?item=DARK_OAK_LOG&shop_type=buyFromShop" \
+    -H "Authorization: Bearer YOUR_API_KEY"
+  ```
+
+  ```python Python
+  import requests
+
+  params = {"item": "DARK_OAK_LOG", "shop_type": "buyFromShop"}
+  headers = {"Authorization": "Bearer YOUR_API_KEY"}
+
+  response = requests.get(
+      "https://api.praeto.gg/v1/transactions/lookup/shop",
+      params=params,
+      headers=headers,
+  )
+  print(response.json())
+  ```
+
+  ```javascript JavaScript
+  const params = new URLSearchParams({
+    item: "DARK_OAK_LOG",
+    shop_type: "buyFromShop",
+  });
+  const response = await fetch(
+    `https://api.praeto.gg/v1/transactions/lookup/shop?${params}`,
+    { headers: { Authorization: "Bearer YOUR_API_KEY" } }
+  );
+  const data = await response.json();
+  console.log(data);
+  ```
+</CodeGroup>
+
+## Example Response
+
+```json
+[
+  {
+    "id": "txn_shop_01j9kz7p2m4r8v3n",
+    "item": "DARK_OAK_LOG",
+    "price": 2,
+    "quantity": 128,
+    "shop_owner": "LumberKing99",
+    "buyer": "BuilderBob",
+    "shop_type": "buyFromShop",
+    "timestamp": "2024-11-14T10:05:22Z"
+  },
+  {
+    "id": "txn_shop_01j9kz8q3n5s9w4p",
+    "item": "DARK_OAK_LOG",
+    "price": 2,
+    "quantity": 64,
+    "shop_owner": "LumberKing99",
+    "buyer": "CraftyCarla",
+    "shop_type": "buyFromShop",
+    "timestamp": "2024-11-14T09:48:11Z"
+  }
+]
+```
+
+## Response Fields
+
+<ResponseField name="id" type="string">
+  Unique identifier for this shop transaction.
+</ResponseField>
+
+<ResponseField name="item" type="string">
+  The Minecraft item type involved in the transaction (e.g., `DARK_OAK_LOG`).
+</ResponseField>
+
+<ResponseField name="price" type="integer">
+  The price per unit in diamonds at which the transaction occurred.
+</ResponseField>
+
+<ResponseField name="quantity" type="integer">
+  The number of items exchanged in this transaction.
+</ResponseField>
+
+<ResponseField name="shop_owner" type="string">
+  The Minecraft username of the player who owns the shop where the transaction took place.
+</ResponseField>
+
+<ResponseField name="buyer" type="string">
+  The Minecraft username of the player who initiated the transaction. For `sellToShop` transactions, this represents the player who sold items into the shop.
+</ResponseField>
+
+<ResponseField name="shop_type" type="string">
+  The direction of the transaction. Either `buyFromShop` (player bought from the shop) or `sellToShop` (player sold to the shop).
+</ResponseField>
+
+<ResponseField name="timestamp" type="string">
+  ISO 8601 UTC timestamp of when the shop transaction was completed.
+</ResponseField>
+
+## Error Responses
+
+| Status | Description |
+|---|---|
+| `400 Bad Request` | The `item` parameter is missing or `shop_type` is not one of the accepted values |
+| `401 Unauthorized` | Missing or invalid API key |
+| `404 Not Found` | No transactions found matching the supplied filters |
+
+<Note>
+  The `shop_type` values are case-sensitive. `buyFromShop` and `sellToShop` must be passed exactly as shown — passing `buyfromshop` or `BuyFromShop` will result in a `400` error.
+</Note>

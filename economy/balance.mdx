@@ -1,0 +1,68 @@
+---
+title: "Check and Manage Your Diamond Balance"
+sidebarTitle: "Balance"
+description: "Learn how to check your Praeto diamond wallet balance, understand weekly credits vs. available diamonds, and track your credit reset schedule."
+---
+
+Your diamond balance gives you a real-time snapshot of your financial standing on Praeto. It shows not just how many diamonds you have available, but also how many weekly credits your membership has granted, how many you have spent, and exactly when your credit window resets.
+
+## Checking Your Balance
+
+Run the following command from anywhere in-game to display your full wallet summary:
+
+```
+/wallet balance
+```
+
+Praeto returns a formatted readout covering your total diamonds, weekly credit allocation, and the reset timestamp for your current credit window.
+
+## Understanding the Balance Display
+
+| Field | Description |
+|---|---|
+| **Total Weekly Credits** | Credits granted by your membership tier each week |
+| **Credits Used** | Credits spent this week |
+| **Credits Remaining** | Available credits (weekly credits minus used) |
+| **Resets At** | The date/time your weekly credits reset |
+
+<Note>
+  Weekly credits reset automatically at the `week_end_at` timestamp shown in your balance. The exact time depends on when your membership was first activated, so every player's reset window is personal to them. Credits do **not** roll over — any unused credits are cleared when the new week begins.
+</Note>
+
+## Diamonds vs. Credits
+
+Both diamonds and credits spend the same way at shops, auctions, and prediction markets, but they come from different places and behave differently:
+
+<Tabs>
+  <Tab title="Diamonds">
+    Diamonds are physical in-game items you mine, trade for, or withdraw from your wallet. They have no expiry date and accumulate indefinitely. Your diamond balance is the foundation of your long-term wealth on Praeto.
+  </Tab>
+  <Tab title="Weekly Credits">
+    Weekly credits are bonus currency granted automatically by your membership tier at the start of each credit window. They work identically to diamonds when spending, but they expire at the end of your week. Unspent credits do **not** convert to diamonds — they simply reset to zero.
+  </Tab>
+</Tabs>
+
+When you make a purchase, Praeto spends your available credits first, then draws from your diamond balance once credits are exhausted.
+
+## Monitoring Your Spending
+
+Your balance display updates in real time after every transaction. Use it to:
+
+- **Confirm purchases landed correctly** — run `/wallet balance` after any shop or auction transaction to verify the deduction.
+- **Plan around your reset date** — the `Resets At` field tells you exactly how many hours you have left to spend remaining credits.
+- **Track long-term accumulation** — your total diamond balance grows whenever you mine, trade, or receive prediction market payouts.
+
+<Tip>
+  Build a habit of checking your balance at the start and end of each session. A quick `/wallet balance` before logging off helps you spot unexpected deductions and plan your next session's spending.
+</Tip>
+
+## Balance and Your Account Identity
+
+Your wallet is linked to both your Discord UUID and your Minecraft username (`mc_name`). This means:
+
+- Your balance is visible and spendable whether you interact through the in-game interface or the Praeto Discord bot.
+- Changing your Minecraft username does not affect your wallet — the underlying Discord UUID keeps the balance intact.
+
+<Info>
+  If your balance ever looks incorrect, verify that you are logged in with the correct Discord account linked to your Praeto profile. Mismatched accounts are the most common cause of apparent balance discrepancies.
+</Info>

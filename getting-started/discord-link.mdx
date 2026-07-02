@@ -1,0 +1,130 @@
+---
+title: "Link Your Discord Account to Praeto"
+sidebarTitle: "Discord Link"
+description: "Connect your Discord account to your Minecraft profile on Praeto to unlock your diamond wallet, marketplace access, and weekly credit allowances."
+---
+
+Praeto uses your Discord UUID as the primary identifier for your account. This page explains why that link is required, how to complete it using either the in-game command or the Discord bot, and what platform features become available the moment the link goes through.
+
+<Note>
+  Discord linking is **required** for all economy features. Without a linked Discord account, you can explore the server but your diamond wallet, marketplace, auction house, and prediction markets remain locked.
+</Note>
+
+## Why Discord Linking Is Required
+
+Unlike most Minecraft servers that rely solely on your in-game username, Praeto anchors your identity to your Discord UUID. This design choice offers three important benefits:
+
+1. **Stability** — Discord UUIDs never change, even if you update your Minecraft username or Discord display name. Your account history stays intact across any rename.
+2. **Cross-platform access** — Your balance and trade history are accessible from the web dashboard and the Discord bot without re-authentication.
+3. **Secure notifications** — Praeto can send you trade confirmations, outbid alerts, and prediction market results directly through Discord DMs.
+
+## How to Link Your Accounts
+
+<Steps>
+  <Step title="Run the Link Command In-Game">
+    Connect to the Praeto server and type the following command in chat:
+
+    ```
+    /link
+    ```
+
+    Praeto responds immediately with a unique 6-digit verification code, for example:
+
+    ```
+    Your verification code is: 482917
+    This code expires in 10 minutes.
+    ```
+
+    Keep the Minecraft window open — you'll need your username visible for the next step.
+
+    <Warning>
+      Never share this code with another player or in a public channel. It grants the ability to link your Minecraft account to any Discord profile.
+    </Warning>
+  </Step>
+
+  <Step title="Open the Praeto Discord Server">
+    Join the official Praeto Discord server if you haven't already. You'll find the invite link at **praeto.gg/discord** or pinned in the Minecraft server MOTD.
+
+    Navigate to the **`#verify`** channel. This is the only channel where the verification bot is active.
+  </Step>
+
+  <Step title="Send Your Code to the Bot">
+    In `#verify`, send the following command to the `@Praeto` bot, replacing `<code>` with the 6-digit code from in-game:
+
+    ```
+    /verify <code>
+    ```
+
+    **Example:**
+
+    ```
+    /verify 482917
+    ```
+
+    The bot verifies the code, matches your Discord UUID to your Minecraft username, and replies with a confirmation:
+
+    ```
+    ✅ Successfully linked!
+    Minecraft: Steve
+    Discord:   YourName#0000
+    Your diamond wallet is now active.
+    ```
+
+    <Tip>
+      If the bot replies with "Invalid or expired code", your 10-minute window has passed. Switch back to Minecraft, run `/link` again, and re-submit the new code promptly.
+    </Tip>
+  </Step>
+
+  <Step title="Confirm the Link In-Game">
+    Return to Minecraft and verify that your account is now fully active:
+
+    ```
+    /balance
+    ```
+
+    You should see your diamond wallet balance (including the new-player starter credit) and your credit wallet. If the command returns a wallet-inactive error, the link did not complete — repeat steps 1–3.
+  </Step>
+</Steps>
+
+## What Unlocks After Linking
+
+Completing the Discord link activates your full Praeto account in one go:
+
+<CardGroup cols={2}>
+  <Card title="Diamond Wallet" icon="gem">
+    Send, receive, and hold diamonds. All marketplace and auction transactions settle here automatically.
+  </Card>
+  <Card title="Marketplace & Shops" icon="store">
+    Browse player listings, open your own shop, and submit buy or sell orders at your chosen price.
+  </Card>
+  <Card title="Prediction Markets" icon="chart-line">
+    Wager diamonds on server events. Winnings are paid to your diamond wallet when the event resolves.
+  </Card>
+  <Card title="Weekly Credits" icon="calendar">
+    Your membership tier's credit allowance is deposited to your credit wallet every Monday — only active for linked accounts.
+  </Card>
+  <Card title="Web Dashboard" icon="browser">
+    Sign into app.praeto.gg with Discord to view balances, transaction history, and open orders from any device.
+  </Card>
+  <Card title="Bot Notifications" icon="bell">
+    Receive Discord DMs for outbid alerts, trade confirmations, shop sales, and prediction market results.
+  </Card>
+</CardGroup>
+
+## Relinking and Account Changes
+
+**Changing your Discord display name or username** has no effect on your link — Praeto stores your Discord UUID, which never changes.
+
+**Switching to a different Discord account** requires unlinking the old one first. Run the following command in-game:
+
+```
+/unlink
+```
+
+Then follow the standard linking steps with your new Discord account. Note that the new Discord account will inherit your existing diamond wallet, transaction history, and membership tier.
+
+**Changing your Minecraft username** also requires a re-link. Contact Praeto support in the `#support` Discord channel — staff will manually re-map your username to your Discord UUID so your account history is preserved.
+
+<Info>
+  You can only have one Discord account linked per Minecraft username, and one Minecraft username linked per Discord account. Attempting to link a second account in either direction will return an error.
+</Info>

@@ -1,0 +1,117 @@
+---
+title: "Diamonds: Praeto's In-Game Currency"
+sidebarTitle: "Diamonds"
+description: "Learn how diamonds function as Praeto's universal currency, how to earn them through mining and trading, and what you can spend them on."
+---
+
+Diamonds are the lifeblood of the Praeto economy. Every transaction — from buying a pickaxe at a player shop to wagering on a prediction market — is denominated in diamonds, giving the entire server a single, unified currency that every player earns, holds, and spends.
+
+## What Diamonds Are
+
+On Praeto, diamonds serve two roles simultaneously: they are a physical in-game item you can mine and hold in your inventory, and they are the unit of account for your digital wallet. When you deposit diamonds, your wallet balance increases by the same amount. When you spend from your wallet, that value can be withdrawn back into physical diamonds.
+
+<Info>
+  Your diamond wallet balance is always denominated in whole diamonds — there are no fractional amounts.
+</Info>
+
+## How to Earn Diamonds
+
+<Tabs>
+  <Tab title="Mining">
+    The most direct path to diamonds is underground. Head to the mining world and dig at diamond-level depths. Every diamond ore you smelt adds a diamond you can deposit into your wallet.
+
+    ```
+    /warp mining
+    ```
+
+    Mine at Y-levels between -58 and -64 for the highest diamond ore density.
+  </Tab>
+  <Tab title="Trading">
+    Set up a player shop or list items in the auction house to earn diamonds from other players. Popular commodities include food, building materials, enchanted gear, and rare drops.
+
+    ```
+    /shop create
+    /ah sell <price>
+    ```
+
+    Consistent traders often out-earn even dedicated miners by flipping in-demand goods.
+  </Tab>
+  <Tab title="Prediction Markets">
+    Stake diamonds on upcoming server events and earn a multiplied payout when your prediction is correct. The higher the risk, the larger the reward.
+
+    ```
+    /predict list
+    /predict wager <market_id> <amount>
+    ```
+
+    Review the odds carefully before wagering — a wrong call costs the full stake.
+  </Tab>
+  <Tab title="Memberships & Credits">
+    Purchasing a membership tier grants you weekly credits that function identically to diamonds in your wallet. Use them for shop purchases, auction bids, or wagers before the weekly reset.
+  </Tab>
+</Tabs>
+
+<Tip>
+  The fastest way to build your diamond wealth early is to combine light mining runs with one reliable trading niche. Pick a high-demand resource — like food or common building blocks — and list it in your shop before logging off each session. Passive shop income compounds quickly while you focus on mining.
+</Tip>
+
+## What You Can Spend Diamonds On
+
+<CardGroup cols={2}>
+  <Card title="Player Shops" icon="store">
+    Browse and buy from player-operated shops scattered across the server. Prices are set by other players, so deals appear regularly.
+  </Card>
+  <Card title="Auction House" icon="gavel">
+    Bid on rare items and exclusive drops listed by other players. Winning bids are deducted from your wallet instantly.
+  </Card>
+  <Card title="Prediction Markets" icon="chart-line">
+    Wager diamonds on server events and competitions. Correct predictions return your stake plus winnings; incorrect ones forfeit the wager.
+  </Card>
+  <Card title="Memberships" icon="crown">
+    Spend diamonds to purchase or renew a membership tier. Higher tiers grant more weekly credits and unlock additional platform features.
+  </Card>
+</CardGroup>
+
+## Depositing and Withdrawing
+
+<Steps>
+  <Step title="Deposit Diamonds">
+    Walk up to the deposit terminal at spawn or run the in-game deposit command to convert physical diamonds in your inventory into wallet balance.
+
+    ```
+    /wallet deposit <amount>
+    ```
+  </Step>
+  <Step title="Check Your Balance">
+    Confirm the deposit registered correctly by checking your current balance.
+
+    ```
+    /wallet balance
+    ```
+  </Step>
+  <Step title="Withdraw Diamonds">
+    Convert wallet balance back into physical diamonds at any time using the withdraw command.
+
+    ```
+    /wallet withdraw <amount>
+    ```
+  </Step>
+</Steps>
+
+<Warning>
+  Withdrawn diamonds enter your inventory as physical items. If your inventory is full the withdrawal will fail — clear space before running the command.
+</Warning>
+
+## Growing Your Wealth
+
+<Accordion title="Diversify your income streams">
+  Relying on a single source of diamonds makes your income fragile. Combine regular mining sessions with at least one passive income source — a shop, an auction listing, or a recurring prediction market entry — to smooth out variance.
+</Accordion>
+
+<Accordion title="Watch the auction house for underpriced listings">
+  Other players occasionally list valuable items below market rate. Check the auction house at least once per session and flip underpriced goods for a quick profit.
+</Accordion>
+
+<Accordion title="Time your membership purchase">
+  Buying a membership right after a weekly credit reset means you get the full week of credits immediately. Buying one day before a reset still costs the same diamonds but delivers far fewer credits before the counter clears.
+</Accordion>

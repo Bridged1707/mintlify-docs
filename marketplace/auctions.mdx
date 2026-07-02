@@ -1,0 +1,91 @@
+---
+title: "Bid and Win Items at Praeto Auctions"
+sidebarTitle: "Auctions"
+description: "List items for timed auction on Praeto, place diamond bids against other players, and claim your winnings when the countdown ends."
+---
+
+Auctions let players list any item for a timed public sale. Instead of a fixed price, the market decides — other players bid diamonds, and the highest bidder when the timer runs out wins the item. Auctions are ideal for rare, enchanted, or bulk items where demand is hard to predict.
+
+## How Auctions Work
+
+Each auction runs for a set duration. Any player can place a bid in diamonds at any time while the auction is open. When the timer expires, the player with the highest bid wins the item and it transfers to their inventory automatically. The seller receives the winning diamond amount.
+
+<Warning>
+  Bids are final. When you place a bid, diamonds are deducted from your balance immediately. If you are outbid, your diamonds are returned — but you cannot retract a bid while it is the leading offer.
+</Warning>
+
+## Listing an Item for Auction
+
+<Steps>
+  <Step title="Open the auction interface">
+    Access the auction house through the in-game menu or the designated NPC. Navigate to the "List Item" section.
+  </Step>
+  <Step title="Select the item to list">
+    Choose the item from your inventory. You can list individual items, stacks, or named/enchanted gear. The item leaves your inventory immediately when listed.
+  </Step>
+  <Step title="Set a starting bid">
+    Enter a minimum starting bid in diamonds. This is the lowest amount any player can open with. Set it at or above your acceptable minimum sale price.
+  </Step>
+  <Step title="Confirm the listing">
+    Review the item details and starting bid, then confirm. Your auction goes live immediately and appears in the active auction list for all players.
+  </Step>
+</Steps>
+
+<Tip>
+  Set your starting bid at a price you'd be happy to accept — auctions are not guaranteed to attract multiple bidders, and the item may sell at the opening price.
+</Tip>
+
+## Placing a Bid
+
+<Steps>
+  <Step title="Browse active auctions">
+    Open the auction house and browse or search for the item you want. Each listing shows the item name, current highest bid, time remaining, and the seller's name.
+  </Step>
+  <Step title="Select the auction">
+    Click the listing to open the auction detail view. Review the item's NBT data if you want to confirm enchantments or custom attributes before bidding.
+  </Step>
+  <Step title="Enter your bid">
+    Type a bid amount greater than the current highest bid. The auction house will show the minimum increment required. Your diamonds are deducted immediately upon confirmation.
+  </Step>
+  <Step title="Monitor the auction">
+    Watch the timer and your bid status. If another player outbids you, you receive a notification and your diamonds are returned automatically.
+  </Step>
+  <Step title="Claim your item">
+    When the auction ends and you have the winning bid, open the auction house and go to "Claim Winnings" to receive your item.
+  </Step>
+</Steps>
+
+## Claiming Winnings and Proceeds
+
+<Tabs>
+  <Tab title="Winner">
+    After the auction closes, navigate to the **Claim Winnings** tab in the auction house. Your won item appears there and transfers to your inventory on claim. Unclaimed items are held for a limited time — claim promptly to avoid expiry.
+  </Tab>
+  <Tab title="Seller">
+    Your diamond proceeds appear in the **Collect Proceeds** tab once the auction closes. If the auction received no bids, your item is returned to the same tab for collection.
+  </Tab>
+</Tabs>
+
+## Tips for Winning Auctions
+
+<Accordion title="Bid late, not early">
+  Placing your maximum bid early signals your budget to other players. Consider waiting until the final moments of an auction to place your winning bid.
+</Accordion>
+
+<Accordion title="Check item prices before bidding">
+  Before entering a bidding war, look up the current VWAP for the item on the [Item Prices](/marketplace/item-prices) page. Avoid paying well above market rate.
+</Accordion>
+
+<Accordion title="Watch for low-starting-bid auctions">
+  Sellers sometimes list rare items with a low starting bid to attract attention. Set up notifications and check the auction house regularly to catch these deals early.
+</Accordion>
+
+## Querying Auction Transactions
+
+You can look up historical auction transaction data via the API to inform your bidding strategy:
+
+```http
+GET /v1/transactions/lookup/auction?item=DIAMOND&min_price=5
+```
+
+This returns a list of completed auction transactions for the specified item, filtered by minimum sale price. Use this data to understand what prices items have actually sold for.
