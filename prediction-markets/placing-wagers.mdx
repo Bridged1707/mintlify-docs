@@ -1,5 +1,5 @@
 ---
-title: "How to Place a Wager on Praeto Markets"
+title: "How to Place Diamond Wagers on Praeto Prediction Markets"
 sidebarTitle: "Placing Wagers"
 description: "Place diamond wagers on prediction markets in Praeto — find an open market, choose your option, confirm your bet, and track live odds as they shift."
 ---
@@ -11,9 +11,9 @@ Placing a wager on Praeto is straightforward: find an open market, read the curr
 You can browse prediction markets in two ways:
 
 - **In-game command** — run the prediction markets command from anywhere on the server to see a list of all currently open markets with their titles and closing times.
-- **Praeto website** — head to the Markets section of the site for a full listing with richer detail, including pool amounts, wager counts, and live implied prices for every option.
+- **Praeto website** — head to the Markets section of the site for a full listing with richer detail, including pool totals, wager counts, and live implied prices for every option.
 
-Any market showing a status of `open` is accepting wagers right now. Markets with a future `closes_at` timestamp are still live — check that timestamp before you decide, because once the deadline passes the pool locks.
+Any market showing a status of `open` is accepting wagers right now. Markets with a future closing deadline are still live — check that deadline before you decide, because once it passes the pool locks.
 
 ## Reading a Market Listing
 
@@ -24,10 +24,10 @@ Before you wager, take a moment to understand what the listing is telling you.
 | **Title** | The event or question being predicted |
 | **Description** | Additional context about the market and how it will resolve |
 | **Options** | The choices you can bet on |
-| **Pool amount** | Total diamonds wagered on that option so far |
+| **Total wagered** | Total diamonds wagered on that option so far |
 | **Implied price** | The market's current probability estimate for that option (0.0 – 1.0) |
-| **Wager count** | How many individual bets have been placed on that option |
-| **Closes at** | The deadline after which no new wagers are accepted |
+| **Number of bets** | How many individual bets have been placed on that option |
+| **Closing time** | The deadline after which no new wagers are accepted |
 
 The implied prices across all options in a market always sum to roughly 1.0 (100%). An option with an implied price of `0.25` means the current pool gives it a 25% chance of winning.
 
@@ -35,7 +35,7 @@ The implied prices across all options in a market always sum to roughly 1.0 (100
 
 <Steps>
   <Step title="Choose an open market">
-    Pick a market whose event you feel confident predicting. Check the `closes_at` time to make sure you have enough time to act.
+    Pick a market whose event you feel confident predicting. Check the closing time to make sure you have enough time to act.
   </Step>
   <Step title="Review all options and implied prices">
     Read every option and its implied price before committing. Look for options you believe the market has undervalued — those offer the best potential returns.
@@ -47,7 +47,7 @@ The implied prices across all options in a market always sum to roughly 1.0 (100
     Type in the number of diamonds you want to wager. Make sure you have that amount available in your balance — wagers are deducted immediately on confirmation.
   </Step>
   <Step title="Confirm your wager">
-    Review the market code, your chosen option, and the amount, then confirm. Your wager is recorded instantly against your Discord account and cannot be changed.
+    Review the market, your chosen option, and the amount, then confirm. Your wager is recorded instantly against your Discord account and cannot be changed.
   </Step>
   <Step title="Check your active wagers">
     After placing, verify your wager appears in your active wagers list — visible in-game or on the website. Note the implied price at the time of your wager for your own reference, since the implied price can move before the market closes.
@@ -85,7 +85,7 @@ You wager **200 diamonds** on an option currently sitting at an implied price of
 
 You can view all your open wagers at any time. Each entry shows:
 
-- The **market title** and code
+- The **market title**
 - The **option** you backed
 - The **amount** you wagered in diamonds
 - The **current implied price** of your option

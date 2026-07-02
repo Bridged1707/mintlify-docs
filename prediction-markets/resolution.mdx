@@ -1,14 +1,14 @@
 ---
-title: "How Praeto Prediction Markets Resolve"
+title: "How Praeto Prediction Market Outcomes Are Resolved"
 sidebarTitle: "Resolution"
-description: "Understand how Praeto prediction markets resolve — how outcomes are determined, how payouts are calculated from implied prices, and when diamonds are awarded."
+description: "Learn how Praeto prediction markets resolve — how outcomes are set, how payouts are calculated from implied prices, and when diamonds hit your balance."
 ---
 
 Every prediction market on Praeto has a defined end point. Once the closing deadline passes, an admin sets the outcome, the system calculates each winner's payout, and the diamonds land in the right balances automatically. Here is exactly how that process works.
 
 ## Step 1 — The Market Closes
 
-Each market has a `closes_at` timestamp. When that moment arrives:
+Each market has a scheduled closing time. When that moment arrives:
 
 - No new wagers are accepted
 - The pool amounts and implied prices for all options are frozen
@@ -18,12 +18,12 @@ The **implied prices locked at close** are the prices used to calculate payouts.
 
 ## Step 2 — Admin Sets the Outcome
 
-Depending on the market's `resolution_mode`, the admin does one of two things:
+Depending on the market type, the admin does one of two things:
 
-| Resolution mode | What the admin does |
-|-----------------|---------------------|
-| `admin_set_option` | Selects the winning option label directly (used for **categorical** markets) |
-| `admin_set_numeric` | Enters the raw numeric result (used for **numeric range** markets — the system finds the matching bracket automatically) |
+| Market type | What the admin does |
+|-------------|---------------------|
+| **Categorical** | Selects the winning option label directly |
+| **Numeric Range** | Enters the raw numeric result — the system finds the matching bracket automatically |
 
 Once the admin submits the result, the market status moves to `resolved` and payout processing begins immediately.
 
@@ -65,7 +65,7 @@ You receive **400 diamonds**: your original 100 back plus 300 in profit. The 0.2
 </Accordion>
 
 <Accordion title="How long after closing do I get paid?">
-  Payouts are processed as soon as an admin resolves the market. There is no fixed SLA, but admins aim to resolve markets promptly after the real-world event concludes. You will see your diamond balance update the moment resolution is confirmed — check your balance or transaction history to verify.
+  Payouts are processed as soon as an admin resolves the market. There is no fixed schedule, but admins aim to resolve markets promptly after the real-world event concludes. You will see your diamond balance update the moment resolution is confirmed — check your balance or transaction history to verify.
 </Accordion>
 
 <Accordion title="What if the implied price changes between my wager and the close?">

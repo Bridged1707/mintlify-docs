@@ -1,10 +1,14 @@
 ---
-title: "Market Prices: Live VWAP Data for Items"
+title: "Market Prices: Live VWAP Data for Praeto Economy Items"
 sidebarTitle: "Prices"
 description: "Retrieve live VWAP price data and market candle statistics for all actively tracked Minecraft items on the Praeto SMP economy via the REST API."
 ---
 
-The prices endpoint returns current VWAP price data for every item actively tracked by Praeto's UCTE market service. Prices are computed from aggregated market candle data and reflect real transaction activity on the SMP. Use the optional `symbol` parameter to pull pricing for a single item rather than the entire market.
+The prices endpoint returns current VWAP price data for every item actively tracked by Praeto's market service. Prices are computed from aggregated market candle data and reflect real transaction activity on the SMP. Use the optional `symbol` parameter to pull pricing for a single item rather than the entire market.
+
+<Note>
+  This endpoint is available based on the market data service. If you encounter unexpected errors, confirm availability via the [Praeto Discord](https://discord.gg/praeto) or check the status page.
+</Note>
 
 <Tip>
   Poll this endpoint before listing items on the auction house or stocking a shop. Comparing your intended price against the current VWAP lets you undercut the market slightly for a faster sale, or price above VWAP when supply is low and demand is high.
@@ -24,22 +28,17 @@ GET /v1/markets/prices
 
 ## Example Requests
 
-<Tabs>
-  <Tab title="All Symbols">
-    ```bash
-    curl "https://api.praeto.gg/v1/markets/prices" \
-      -H "Authorization: Bearer YOUR_API_KEY"
-    ```
-  </Tab>
-  <Tab title="Single Symbol">
-    ```bash
-    curl "https://api.praeto.gg/v1/markets/prices?symbol=DIAMOND" \
-      -H "Authorization: Bearer YOUR_API_KEY"
-    ```
-  </Tab>
-</Tabs>
-
 <CodeGroup>
+  ```bash cURL — All Symbols
+  curl "https://api.praeto.gg/v1/markets/prices" \
+    -H "Authorization: Bearer YOUR_API_KEY"
+  ```
+
+  ```bash cURL — Single Symbol
+  curl "https://api.praeto.gg/v1/markets/prices?symbol=DIAMOND" \
+    -H "Authorization: Bearer YOUR_API_KEY"
+  ```
+
   ```python Python
   import requests
 
@@ -136,4 +135,4 @@ A low `candle_count` (e.g., fewer than 20) means the VWAP is based on limited tr
 | `400 Bad Request` | The `symbol` value is not a recognised market symbol code |
 | `401 Unauthorized` | Missing or invalid API key |
 | `404 Not Found` | The requested symbol exists but has no price data available |
-| `503 Service Unavailable` | The UCTE market pricing service is temporarily unavailable |
+| `503 Service Unavailable` | The market pricing service is temporarily unavailable |

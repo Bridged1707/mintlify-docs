@@ -1,10 +1,14 @@
 ---
-title: "Market Symbols: Tracked Items on Praeto"
+title: "Market Symbols: Browse All Tracked Items on Praeto"
 sidebarTitle: "Symbols"
 description: "Retrieve the full list of Minecraft items actively tracked on Praeto's economy market, including their VWAP pricing method and market candle data source."
 ---
 
-The symbols endpoint returns every Minecraft item that Praeto's UCTE market service currently tracks. Each symbol represents one tradeable item on the server economy and carries metadata about how its price is calculated and displayed. Use this endpoint to discover which items have live market data before querying prices.
+The symbols endpoint returns every Minecraft item that Praeto's market service currently tracks. Each symbol represents one tradeable item on the server economy and carries metadata about how its price is calculated and displayed. Use this endpoint to discover which items have live market data before querying prices.
+
+<Note>
+  This endpoint is available based on the market data service. If you encounter unexpected errors, confirm availability via the [Praeto Discord](https://discord.gg/praeto) or check the status page.
+</Note>
 
 ## Endpoint
 
@@ -106,4 +110,4 @@ const activeSymbols = symbols.filter((s) => s.is_active);
 | Status | Description |
 |---|---|
 | `401 Unauthorized` | Missing or invalid API key |
-| `503 Service Unavailable` | The UCTE market tracking service is temporarily unavailable |
+| `503 Service Unavailable` | The market tracking service is temporarily unavailable |

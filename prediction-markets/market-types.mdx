@@ -1,5 +1,5 @@
 ---
-title: "Categorical vs. Numeric Range Prediction Markets"
+title: "Categorical vs. Numeric Range Prediction Market Types"
 sidebarTitle: "Market Types"
 description: "Explore Praeto's two prediction market types — categorical markets for named options and numeric range markets for price or quantity bracket outcomes."
 ---
@@ -20,30 +20,28 @@ Praeto prediction markets come in two flavours, each suited to a different kind 
     - **Coin flips** — a simple Heads vs. Tails market, resolved by an in-game coin toss
     - **Any discrete choice** — "Which biome will the next build event take place in?" and similar questions where the options are clearly named and mutually exclusive
 
-    ### Example: Choose a Player
+    ### Example: Coin Flip
 
-    > **Market:** Choose a Player
-    > **Type:** `categorical`
-    > **Resolution mode:** `admin_set_option`
+    > **Market:** Choose a Side
+    > **Type:** Categorical
 
-    | Option | Label | Implied Price | Pool Amount |
-    |--------|-------|--------------|-------------|
-    | `HEADS` | Heads | 0.62 | 310 💎 |
-    | `TAILS` | Tails | 0.38 | 190 💎 |
+    | Option | Label | Implied Price | Total Wagered |
+    |--------|-------|--------------|---------------|
+    | Heads  | Heads | 0.62         | 310 💎        |
+    | Tails  | Tails | 0.38         | 190 💎        |
 
     In this market the crowd heavily favours Heads at 62%. Backing Tails at 0.38 means a winning wager of 100 diamonds pays out roughly **263 diamonds** — a better return if you think the market is wrong.
 
     ### Example: Player Name Vote
 
     > **Market:** End-of-Season MVP Vote
-    > **Type:** `categorical`
-    > **Resolution mode:** `admin_set_option`
+    > **Type:** Categorical
 
-    | Option | Label | Implied Price | Pool Amount |
-    |--------|-------|--------------|-------------|
-    | `player_alex` | Alex | 0.45 | 450 💎 |
-    | `player_blake` | Blake | 0.30 | 300 💎 |
-    | `player_casey` | Casey | 0.25 | 250 💎 |
+    | Option       | Label | Implied Price | Total Wagered |
+    |--------------|-------|--------------|---------------|
+    | Alex         | Alex  | 0.45         | 450 💎        |
+    | Blake        | Blake | 0.30         | 300 💎        |
+    | Casey        | Casey | 0.25         | 250 💎        |
 
     Three options share the pool. Casey is the long shot — a 100-diamond wager on Casey returns **400 diamonds** if the vote goes their way.
 
@@ -66,25 +64,24 @@ Praeto prediction markets come in two flavours, each suited to a different kind 
 
     ### How brackets work
 
-    Each option in a numeric range market carries a `range_min` and `range_max`. When the admin sets the numeric result, the system automatically determines which bracket it falls into and declares that option the winner.
+    Each option in a numeric range market defines a price bracket. When the admin enters the final numeric result, the system automatically determines which bracket it falls into and declares that option the winner.
 
-    | Bracket boundary | Behaviour |
-    |-----------------|-----------|
-    | `range_min` is null | No lower bound — "Under X" |
-    | `range_max` is null | No upper bound — "Over X" |
-    | Both set | Inclusive range between the two values |
+    | Bracket type | Example label |
+    |--------------|--------------|
+    | No lower bound | "Under 500" |
+    | No upper bound | "Over 1000" |
+    | Bounded range  | "500 to 1000" |
 
     ### Example: Nether Star Price at End of Month
 
     > **Market:** Nether Star Price at End of Month
-    > **Type:** `numeric_range`
-    > **Resolution mode:** `admin_set_numeric`
+    > **Type:** Numeric Range
 
-    | Option | Label | Range | Implied Price | Pool Amount |
-    |--------|-------|-------|--------------|-------------|
-    | `under_500` | Under 500 | < 500 | 0.20 | 200 💎 |
-    | `500_to_1000` | 500 to 1000 | 500 – 1000 | 0.55 | 550 💎 |
-    | `over_1000` | Over 1000 | > 1000 | 0.25 | 250 💎 |
+    | Option      | Label        | Range      | Implied Price | Total Wagered |
+    |-------------|--------------|------------|--------------|---------------|
+    | Under 500   | Under 500    | < 500      | 0.20         | 200 💎        |
+    | 500 to 1000 | 500 to 1000  | 500 – 1000 | 0.55         | 550 💎        |
+    | Over 1000   | Over 1000    | > 1000     | 0.25         | 250 💎        |
 
     The market thinks a mid-range price (500–1000) is the most likely outcome at 55%. But if you believe the Nether Star economy is heating up, backing "Over 1000" at 0.25 means a 100-diamond wager returns **400 diamonds** if the price closes above 1,000.
 
@@ -93,7 +90,7 @@ Praeto prediction markets come in two flavours, each suited to a different kind 
     </Tip>
 
     <Note>
-      The admin enters the raw numeric result (e.g., `1,200`) at resolution, and the system matches it to the correct bracket automatically. You do not need to worry about boundary edge cases — the bracket definitions are set when the market is created.
+      The admin enters the raw numeric result at resolution, and the system matches it to the correct bracket automatically. You do not need to worry about boundary edge cases — the bracket definitions are set when the market is created.
     </Note>
   </Tab>
 </Tabs>
@@ -101,22 +98,22 @@ Praeto prediction markets come in two flavours, each suited to a different kind 
 ## Quick Comparison
 
 <CardGroup cols={2}>
-  <Card title="Categorical" icon="tag">
+  <Card title="Categorical" icon="tag" href="/prediction-markets/market-types">
     **Best for:** Named outcomes with no numeric value
-    
+
     **Options look like:** Player names, Heads / Tails, biome names
-    
+
     **You pick:** One label from the list
-    
+
     **Resolved by:** Admin selects the winning option label
   </Card>
-  <Card title="Numeric Range" icon="chart-bar">
+  <Card title="Numeric Range" icon="chart-bar" href="/prediction-markets/market-types">
     **Best for:** Measurable outcomes — prices, counts, quantities
-    
+
     **Options look like:** Under 500 / 500–1000 / Over 1000
-    
+
     **You pick:** One bracket from the list
-    
+
     **Resolved by:** Admin enters the raw number; system finds the bracket
   </Card>
 </CardGroup>
